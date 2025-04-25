@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "./GlobalSetup/ReactQuery/ReactQuryProviders";
+import ReduxProvider from "./GlobalSetup/Redux/ReduxProvider";
+import { CounterProvider } from "./context/counter/counter";
+import { OrderProvider } from "./context/order/OrdersContext";
+// import { OrderProvider } from "./context/order/order"; // Ensure this path is correct
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* <ReduxProvider > */}
+        <OrderProvider>
+          <ReactQueryProvider>
+            {children}
+          </ReactQueryProvider>
+        </OrderProvider>
+        {/* </ReduxProvider> */}
       </body>
     </html>
   );
