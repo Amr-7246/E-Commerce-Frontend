@@ -4,7 +4,7 @@ import { useEffect } from "react"
 // ~ ######## Refresh Function for backend
     export const useRefresh = () => {
         const refresh = async () => {
-            const res = await axios.get('http://localhost:3000/auth/refresh' , { withCredentials : true} )
+            const res = await axios.get('http://e-commerce-backend-production-c023.up.railway.app/auth/refresh' , { withCredentials : true} )
             const { token }= res.data.accessToken
             localStorage.setItem('accessToken' , token )
             console.log("Good amr we refreshed now ")
@@ -15,7 +15,7 @@ import { useEffect } from "react"
 // ~ ######## Refresh Function for backend
 // ~ ######## Custom slice from Axios liberary
     const CustomAxios = axios.create({
-        baseURL : 'http://localhost:3000',
+        baseURL : 'http://e-commerce-backend-production-c023.up.railway.app',
         withCredentials : true
     })
 // ~ ######## Custom slice from Axios liberary
