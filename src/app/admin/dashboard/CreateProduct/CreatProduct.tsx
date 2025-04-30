@@ -134,9 +134,9 @@ export default function CreatProduct({ existingProduct }: FormProps) {
     // & handle Form Submit
 // ~ ############################# Logic
 return (
-    <div className={`${Options} flex-center `}>
-        <form onSubmit={handleSubmit} className="max-w-md text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-stone-800 shadow">
-            <h2 className="text-2xl font-bold text-sky-400">
+    <div className={`${Options} flex-center  bg-gradient-to-tr from-black via-amber-200/30 to-black `}>
+        <form onSubmit={handleSubmit} className="max-w-md text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
+            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50 ">
             {isEditMode ? 'Edit Product ' : 'Create Product '}
             </h2>
     
@@ -151,7 +151,7 @@ return (
             <textarea name="shortDesc" value={ProductData.shortDesc} onChange={handleChange} placeholder="Short Description" className="input" />
     
             <textarea name="description" value={ProductData.description} onChange={handleChange} placeholder="Full Description (optional)" className="input" />
-            <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-tr from-green-400 to-sky-500 cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
+            <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
                 <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
                 <input 
                     type="file" 

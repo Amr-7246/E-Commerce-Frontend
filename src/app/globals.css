@@ -154,9 +154,12 @@
     @apply flex items-center justify-center;
   }
   .btn {
-    @apply hover:border-[1px] hover:border-sky-400 border-[1px] border-black hover:!text-sky-400 hover:from-transparent hover:to-transparent p-3 rounded-lg text-center text-sm font-bold transition-all duration-500 ease-in-out bg-gradient-to-r from-indigo-600 to-sky-400 text-background cursor-pointer ;
+    @apply hover:border-[1px] hover:border-amber-200 border-[1px] border-black hover:!text-orange-800 hover:from-black hover:via-amber-300/30 hover:to-black p-3 rounded-lg text-center text-sm font-bold transition-all duration-800 ease-in-out bg-gradient-to-r from-black via-amber-200/30 to-black text-stone-400 cursor-pointer ;
   }
   .input {
     @apply w-full p-2 border-[1px] border-stone-600  text-stone-400 font-bold focus:outline-none focus:border-sky-400 duration-500 rounded-lg  ;
+  }
+  .banner-image {
+    @apply rounded-lg absolute ;
   }
 }

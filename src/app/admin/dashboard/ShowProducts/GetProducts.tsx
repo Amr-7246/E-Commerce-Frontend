@@ -7,20 +7,21 @@ import { useEditProducts } from '../../api/Hooks/useEditProducts'
 import CreatProduct from '../CreateProduct/CreatProduct'
 import { Options } from '../../style/AdminStyle'
 import Loading from '@/app/components/Loading'
+import { UseGetEntities } from '@/app/APIs/GetEntitiy'
+import { UseDeleteEntity } from '@/app/APIs/DeleteEntitiy'
 
 const GetProductes = () => {
 // ~ ############ Hooks
-    const [IsGet , setIsGet] = useState(true)
     const [WhoEditing , setWhoEditing ] = useState('')
-    const { data: products, isLoading, isFetching, isError } = useGetProducts(IsGet)
-    const { mutate: DeletProduct , isPending } = useDeletProduct()
+    const { data , isLoading, isFetching, isError } = UseGetEntities('products')
+    const { mutate: DeletProduct , isPending } = UseDeleteEntity()
+    const products = data?.data.docs
     const { mutate: EditProduct } = useEditProducts()
-// ~ ############ Hooks
-// ~ ############ Logic
+    // ~ ############ Hooks
+    // ~ ############ Logic
     // & HandelDelet
-        const HandelDelet = (id: string | undefined) => {
-            DeletProduct(id)
-            console.log(id)
+    const HandelDelet = (id: any ) => {
+            DeletProduct({ id , Route: 'products' })
         }
     // & HandelDelet
     // & HandelEdit
@@ -37,14 +38,14 @@ const GetProductes = () => {
                     <div>
                         <Loading/>
                     </div>
-                ) : isError ? (
+                ) : isError || (products ?? []).length < 0 ?  (
                     <p className="text-red-400 font-semibold"> Error loading products</p>
                 ) : (
                     !isLoading && !isFetching && (products ?? []).length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {products?.map((product, idx) => (
-                                <>
-                                    <div key={idx} className=" flex gap-3 bg-gray-800 rounded-2xl min-h-[210px] min-w-[350px] overflow-hidden shadow-lg p-4 space-y-2 transition-all duration-300" >
+                        <div className=" flex-center flex-col gap-5">
+                            {products?.map((product: any, idx : any) => (
+                                <div className='flex gap-5 lg:flex-row flex-col '>
+                                    <div key={idx} className=" flex gap-3  bg-gradient-to-r from-black via-amber-200/30 to-black rounded-2xl min-h-[210px] min-w-[350px] overflow-hidden shadow-lg p-4 space-y-2 transition-all duration-300" >
                                         {/* start Products all deets */}
                                             <div className='h-full flex-center ' >
                                                 <span className='w-[120px] h-full border-stone-700 rounded-lg overflow-hidden  '>
@@ -87,7 +88,7 @@ const GetProductes = () => {
                                     </div>
                                     {/* Config buttons */}
                                         <div className=' flex items-end justify-end gap-3 p-4' >
-                                            <button className='btn h-fit !from-rose-500 !to-orange-400 hover:border-[1px] hover:border-orange-400  border-transparent hover:text-orange-400 hover:!from-transparent hover:!to-transparent ' onClick={() => HandelDelet(product._id)} >Delet Product</button>
+                                            <button className='btn h-fit !from-orange-950 via-amber-200/20 !to-orange-950 hover:border-[1px] hover:border-orange-400  border-transparent hover:text-orange-400 hover:!from-transparent hover:!via-transparent hover:!to-transparent ' onClick={() => HandelDelet(product._id)} >Delet Product</button>
                                             <button className='btn h-fit '  onClick={() => setWhoEditing(product._id)} >Edit Product</button>
                                         </div>
                                     {/* Config buttons */}
@@ -96,7 +97,7 @@ const GetProductes = () => {
                                             <CreatProduct existingProduct = {product} />
                                         </div>
                                     {/* Edittor form */}
-                                </>
+                                </div>
                             ))}
                         </div>
                     )

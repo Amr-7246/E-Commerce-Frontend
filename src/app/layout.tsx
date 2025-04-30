@@ -5,6 +5,8 @@ import ReactQueryProvider from "./GlobalSetup/ReactQuery/ReactQuryProviders";
 import ReduxProvider from "./GlobalSetup/Redux/ReduxProvider";
 import { CounterProvider } from "./context/counter/counter";
 import { OrderProvider } from "./context/order/OrdersContext";
+import { UserInfoContextProvider } from "./context/users/userInfoContext";
+import { GlobalContextProvider } from "./context/GlobalContext/GlobalContext";
 // import { OrderProvider } from "./context/order/order"; // Ensure this path is correct
 
 const geistSans = Geist({
@@ -30,13 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}
       >
         {/* <ReduxProvider > */}
         <OrderProvider>
-          <ReactQueryProvider>
-            {children}
-          </ReactQueryProvider>
+          <GlobalContextProvider>
+            <UserInfoContextProvider>
+              <ReactQueryProvider>
+                {children}
+              </ReactQueryProvider>
+            </UserInfoContextProvider>
+          </GlobalContextProvider>
         </OrderProvider>
         {/* </ReduxProvider> */}
       </body>

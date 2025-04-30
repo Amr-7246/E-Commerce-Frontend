@@ -1,9 +1,7 @@
-import LogIn from "./components/LogInnents/LogIn";
+import { redirect } from "next/navigation";
 
 export default function Page() {
     return (
-        <div>
-            <LogIn/>
-        </div>
+        redirect('/signIn')
     );
 }

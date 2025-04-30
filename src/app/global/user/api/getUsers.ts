@@ -9,7 +9,7 @@ const GetUsers = async () => {
 export const UseGetUsers = () => {
     return useQuery ({
         queryKey : ['user'],
-        queryFn : async () => {
+        queryFn : () => {
             try {
                 return GetUsers()
             } catch (error) {

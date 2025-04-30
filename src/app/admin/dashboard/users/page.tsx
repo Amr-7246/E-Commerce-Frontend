@@ -1,8 +1,9 @@
+import { OptionsPage } from "../../style/AdminStyle";
 import AllUsers from "./AllUsers";
 
 export default function Page() {
     return (
-        <div>
+        <div className={`${OptionsPage}`} >
             <AllUsers/>
         </div>
     );

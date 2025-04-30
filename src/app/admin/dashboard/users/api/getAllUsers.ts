@@ -1,27 +1,20 @@
 "use client"
 import axios from "axios";
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'react-hot-toast'
+import { useQuery } from '@tanstack/react-query'
 import { IProduct } from "@/app/admin/api/types/productsType";
 
 export const getUsers = async () => {
-    const res = await axios.get( 'http://localhost:3000/user')
-    return res.data
+    const res = await axios.get('http://localhost:3000/user')
+    // console.log("Here is all users amr : " + JSON.stringify(res.data.data.docs) )
+    return res.data.data.docs
 }
 
-export function useGetUsers() {
+export const useGetUsers = () => {
     return useQuery<IProduct[],Error>({
         queryKey : ['user'],
-        queryFn: async () => {
-            try {
-                return getUsers() 
-            } catch (error) {
-                toast.error('Failed to fetch users ')
-                console.log("We could not got the users Amr ", error)
-                throw error
-            }
-        },
-        retry: false,
+        queryFn : getUsers,
+        refetchOnWindowFocus: false,
+        retry: 1,
     });
 }
 export type { IProduct };
