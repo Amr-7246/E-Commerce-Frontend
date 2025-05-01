@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 
 const SignOut = async (userId : any ) => {
-    const res = await axios.delete(`http://localhost:3000/user/${userId}`)
+    const res = await axios.delete( `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/${userId}`)
     return res.data
 }
 export const useSignOut = () => {

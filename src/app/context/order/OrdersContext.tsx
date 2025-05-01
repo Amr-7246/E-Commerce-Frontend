@@ -66,7 +66,6 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
           category: product.category,
           shortDesc: product.shortDesc
         };
-        console.log('We added the product amr and here is it ' + JSON.stringify(newItem))
         
         setCurrentOrder((prev) => ({
           ...prev!,
@@ -75,7 +74,6 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
           updatedAt: new Date(),
         }));
       };
-      console.log('and now here is the order ' + JSON.stringify(currentOrder) )
     // ~ ################## create Order Function
     // ~ ################## clear Order Function
       const clearOrder = () => {

@@ -1,11 +1,12 @@
 'use client'
 
+import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import { useOrder } from '@/app/context/order/OrdersContext'
 import { useGetOrders } from '@/app/global/user/api/getOrders'
 import React from 'react'
 
 const Orders = () => {
-const { data : currentOrder } = useGetOrders()
+const { data : currentOrder } = UseGetEntities('orders')
 // const { currentOrder } = useOrder()
 
 if (!currentOrder) return <p className="text-red-500">No order selected 😢</p>

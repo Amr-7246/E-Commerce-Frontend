@@ -5,7 +5,7 @@ import { useUserInfoContext } from "@/app/context/users/userInfoContext"
 import {  useRouter } from "next/navigation"
 
 const SignUp = async (payload : Iuse ) => {
-    const res = await axios.post( 'http://localhost:3000/auth/signup', payload ,  { withCredentials: true } )
+    const res = await axios.post( `${process.env.NEXT_PUBLIC_BACK_END_URL}/auth/signup`, payload ,  { withCredentials: true } )
     return res.data
 }
 export const useSignUp = () => {

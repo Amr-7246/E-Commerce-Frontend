@@ -7,6 +7,7 @@ import { useEditProducts } from '../../api/Hooks/useEditProducts'
 import { Options } from '../../style/AdminStyle'
 import { UploadAssets } from '../../utils/uploadOnCloudinary'
 import { FiPlus } from "react-icons/fi";
+import { UseCreateEntitiy } from '@/app/APIs/CreateEntitiy'
 
 interface FormProps {
     existingProduct?: IProduct
@@ -16,7 +17,7 @@ export default function CreatProduct({ existingProduct }: FormProps) {
 // ~ ############################# Hooks
     const [IsVarintes, setIsVarintes] = useState(false)
     const isEditMode = !!existingProduct
-    const { mutate: createMutate, isPending: isCreating } = useCreateProduct()
+    const { mutate: createMutate, isPending: isCreating } = UseCreateEntitiy()
     const { mutate: editMutate, isPending: isEditing } = useEditProducts()
     
     const [Variants, setVariants] = useState({
@@ -115,7 +116,7 @@ export default function CreatProduct({ existingProduct }: FormProps) {
             if (isEditMode && existingProduct?._id) {
                 editMutate({ id: existingProduct._id, data: ProductData })
             } else {
-                createMutate(ProductData)
+                createMutate({ Data: ProductData, Route: 'products' })
             }
             console.log('We Sent the Product Data to the backend Amr . .  and here is it : ' + JSON.stringify(ProductData) )
             if (!isEditMode) {

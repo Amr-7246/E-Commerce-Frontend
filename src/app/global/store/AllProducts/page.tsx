@@ -11,6 +11,7 @@ import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import { useGlobalContext } from '@/app/context/GlobalContext/GlobalContext'
+import Link from 'next/link'
 
 export default function Page() {
 // ~ ########## Data & Hooks
@@ -103,7 +104,7 @@ return (
                                         )}
                                         </div>
                                         <p className="text-xs text-gray-500 italic">Category: {product.category}</p>
-                                        <button className='btn w-full ' onClick={() =>{ clearOrder() ; createOrder(product) ; redirect('/global/order') }} >add to cart</button>
+                                        <Link href='/global/order'  className='btn w-full ' onClick={() =>{ clearOrder() ; createOrder(product) }} >Buy Now</Link>
                                     </div>
                             ))}
                         </div>
