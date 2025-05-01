@@ -4,12 +4,12 @@ import { useEffect } from "react"
 // ~ ######## Refresh Function for backend
     export const useRefresh = () => {
         const refresh = async () => {
-            // const res = await axios.get('http://e-commerce-backend-production-c023.up.railway.app/auth/refresh' , { withCredentials : true} )
+            // const res = await axios.get('https://e-commerce-backend-production-c023.up.railway.app/auth/refresh' , { withCredentials : true} )
             if (!process.env.NEXT_PUBLIC_BACK_END_URL) {
                 throw new Error("NEXT_PUBLIC_BACK_END_URL is not defined");
             }
             // const res = await axios.get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/auth/refresh` || "https://e-commerce-backend-production-c023.up.railway.app/auth/refresh", { withCredentials: true });
-            const res = await axios.get("http://e-commerce-backend-production-c023.up.railway.app/auth/refresh", { withCredentials: true });
+            const res = await axios.get("https://e-commerce-backend-production-c023.up.railway.app/auth/refresh", { withCredentials: true });
             const { token }= res.data.accessToken
             localStorage.setItem('accessToken' , token )
             console.log("Good amr we refreshed now ")
@@ -20,8 +20,8 @@ import { useEffect } from "react"
 // ~ ######## Refresh Function for backend
 // ~ ######## Custom slice from Axios liberary
     const CustomAxios = axios.create({
-        // baseURL : process.env.NEXT_PUBLIC_BACK_END_URL || 'http://e-commerce-backend-production-c023.up.railway.app' ,
-        baseURL : 'http://e-commerce-backend-production-c023.up.railway.app/',
+        // baseURL : process.env.NEXT_PUBLIC_BACK_END_URL || 'https://e-commerce-backend-production-c023.up.railway.app' ,
+        baseURL : 'https://e-commerce-backend-production-c023.up.railway.app/',
         withCredentials : true
     })
 // ~ ######## Custom slice from Axios liberary
