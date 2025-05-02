@@ -4,6 +4,7 @@ import { useEffect } from "react"
 // ~ ######## Refresh Function for backend
     export const useRefresh = () => {
         const refresh = async () => {
+            // const res = await axios.get('https://e-commerce-backend-production-c023.up.railway.app/auth/refresh' , { withCredentials : true} )
             if (!process.env.NEXT_PUBLIC_BACK_END_URL) {
                 throw new Error("NEXT_PUBLIC_BACK_END_URL is not defined");
             }

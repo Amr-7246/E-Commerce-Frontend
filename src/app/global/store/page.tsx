@@ -1,6 +1,4 @@
-import GlobalNavBar from '@/app/components/GlobalNavBar'
 import React from 'react'
-import Store from './Store'
 import CustomSlider from './CustomSlider'
 
 const page = () => {

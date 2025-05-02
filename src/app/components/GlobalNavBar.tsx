@@ -48,11 +48,10 @@ const GlobalNav = () => {
             document.body.style.overflow = "auto"
         } 
     }, [IsOpend])
-    
 return (
 <>
     {/* Wide nav bar */}
-        <nav  className='hidden md:flex !justify-between flex-center gap-3 p-3 h-fit sticky w-[80%] mx-auto '>
+        <nav  className='hidden md:flex !justify-between flex-center gap-3 h-fit sticky w-[80%]  pt-6 mx-auto '>
             <div className=''>
                 <Link href={"/global/home"} >
                     <img className='w-[60px] cursor-pointer h-[60px] rounded-lg border-[1px] border-amber-200 ' src="/assets/photo_2_2025-04-28_02-57-24.jpg" alt="logo" />
@@ -70,9 +69,9 @@ return (
         </nav >
     {/* Wide nav bar */}
     {/* mobile nav bar */}
-        <nav ref={navRef}  className="flex-center md:hidden !justify-between  p-3 text-stone-400 h-fit sticky w-[80%] mx-auto">
+        <nav ref={navRef}  className="flex-center md:hidden mb-[-50] !justify-between text-stone-400 h-fit w-[90%] pt-6 mx-auto ">
             <Link href={"/global/home"} >
-                <img className='w-[60px] cursor-pointer h-[60px] rounded-lg border-[1px] border-amber-200 ' src="/assets/photo_2_2025-04-28_02-57-24.jpg" alt="logo" />
+                <img className='md:w-[60px] md:h-[60px] h-[50px] w-[50px] cursor-pointer rounded-lg border-[1px] border-amber-200 ' src="/assets/photo_2_2025-04-28_02-57-24.jpg" alt="logo" />
             </Link>
             <div onClick={() => {setIsOpend(true); navRef.current?.scrollIntoView({ behavior: "smooth" });}}  className="flex-center group items-end flex-col w-[60px] h-[60px] gap-2 cursor-pointer">
                 <span className={` ${IsOpend ? 'w-full  group-hover:w-1/2 ' : ' w-1/2 group-hover:w-full' } block  h-[1px] bg-amber-200 transition-all duration-800 ease-in-out `}></span>
@@ -81,7 +80,7 @@ return (
         </nav>
         {/* Sid Bar */}
             <nav className={`  absolute ${IsOpend ? "translate-x-[0%]" : "translate-x-[-100%]" } left-0 top-0 md:hidden z-20 flex h-screen duration-1000 transition-all w-full `}>
-                <div className=' text-stone-300 bg-stone-900 w-[60%] border-r border-stone-600 '>
+                <div className=' text-stone-300 bg-stone-900 w-[70%] border-r border-stone-600 '>
                     <div className='border-b flex justify-end border-black px-5 '>
                         <div onClick={() => setIsOpend(false)}  className={`flex-center group items-end flex-col w-[60px] h-[60px] gap-2 cursor-pointer`}>
                             <span className={` text-amber-200 text-[30px] hover:scale-125 hover:rotate-15 hover:text-orange-900 duration-700 `}><IoCloseOutline/></span>

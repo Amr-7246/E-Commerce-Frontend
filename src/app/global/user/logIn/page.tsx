@@ -27,8 +27,8 @@ export default function Page() {
       // redirect("/global/home")
     }
     return (
-<div  className=" flex-center">
-      <div className="bg-gradient-to-br from-sky-500 to-purple-500 border border-stone-700 p-8 rounded-2xl shadow-xl w-full max-w-sm">
+<div  className="page">
+      <div className="bg-gradient-to-r from-black via-amber-200/30 to-black text-stone-400  border border-stone-700 p-8 rounded-2xl shadow-xl w-full max-w-sm">
         <h2 className="text-2xl font-bold text-center text-stone-800 mb-6"> Log In</h2>
         <div className="space-y-4">
           {/* email */}
