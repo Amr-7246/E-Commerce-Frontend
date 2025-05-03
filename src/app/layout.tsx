@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "./GlobalSetup/ReactQuery/ReactQuryProviders";
 import ReduxProvider from "./GlobalSetup/Redux/ReduxProvider";
-import { CounterProvider } from "./context/counter/counter";
 import { OrderProvider } from "./context/order/OrdersContext";
 import { UserInfoContextProvider } from "./context/users/userInfoContext";
 import { GlobalContextProvider } from "./context/GlobalContext/GlobalContext";
