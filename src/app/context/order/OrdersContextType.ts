@@ -1,4 +1,4 @@
-import { IProduct } from "@/app/admin/api/types/productsType";
+import { IProduct } from "@/app/types/productsType";
 
 // ? Type definitions matching your backend schema
 

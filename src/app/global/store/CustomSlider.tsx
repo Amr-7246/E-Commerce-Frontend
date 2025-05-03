@@ -1,7 +1,6 @@
 'use client'
 
 import React, { use, useRef } from 'react'
-import { useGetProducts } from '@/app/admin/api/Hooks/useGetProducts'
 import Loading from '@/app/components/Loading'
 import { useOrder } from '@/app/context/order/OrdersContext'
 import { redirect } from 'next/navigation'
@@ -64,7 +63,8 @@ const CustomSlider = ({ title , category }: { title: string , category : string 
                                                 </span>
                                             )}
                                         </div>
-                                        <p className="text-xs text-amber-200 italic"> Category: {product.category} </p>
+                                        <p className="text-xs text-amber-200 italic"> Category: {title} </p>
+                                        <p className="text-xs text-amber-200 italic"> variants Number : {product.variants.length} </p>
                                     {/* Product Deets */}
                                     {/* Add to cart button */}
                                         <button

@@ -1,6 +1,4 @@
-    "use client"
-
-import { useGetProducts } from '@/app/admin/api/Hooks/useGetProducts'
+"use client"
 import Loading from '@/app/components/Loading'
 import { useOrder } from '@/app/context/order/OrdersContext'
 import { motion } from 'framer-motion'
@@ -103,8 +101,8 @@ return (
                                             </span>
                                         )}
                                         </div>
-                                        <p className="text-xs text-gray-500 italic">Category: {product.category}</p>
-                                        <Link href='/global/order'  className='btn w-full ' onClick={() =>{ clearOrder() ; createOrder(product) }} >Buy Now</Link>
+                                        <p className="text-xs text-amber-200 italic"> variants Number : {product.variants.length} </p>
+                                        <Link href='/global/order'  className='btn my-3 !w-full ' onClick={() =>{ clearOrder() ; createOrder(product) }} >Buy Now</Link>
                                     </div>
                             ))}
                         </div>

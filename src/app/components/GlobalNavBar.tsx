@@ -51,7 +51,7 @@ const GlobalNav = () => {
 return (
 <>
     {/* Wide nav bar */}
-        <nav  className='hidden md:flex !justify-between flex-center gap-3 h-fit sticky w-[80%]  pt-6 mx-auto '>
+        <nav  className='hidden md:flex !justify-between flex-center gap-3 h-fit sticky w-[80%] pt-4 mx-auto '>
             <div className=''>
                 <Link href={"/global/home"} >
                     <img className='w-[60px] cursor-pointer h-[60px] rounded-lg border-[1px] border-amber-200 ' src="/assets/photo_2_2025-04-28_02-57-24.jpg" alt="logo" />
@@ -69,7 +69,7 @@ return (
         </nav >
     {/* Wide nav bar */}
     {/* mobile nav bar */}
-        <nav ref={navRef}  className="flex-center md:hidden mb-[-50] !justify-between text-stone-400 h-fit w-[90%] pt-6 mx-auto ">
+        <nav ref={navRef}  className="flex-center md:hidden mb-[-50] !justify-between text-stone-400 h-fit w-[90%] pt-4 mx-auto ">
             <Link href={"/global/home"} >
                 <img className='md:w-[60px] md:h-[60px] h-[50px] w-[50px] cursor-pointer rounded-lg border-[1px] border-amber-200 ' src="/assets/photo_2_2025-04-28_02-57-24.jpg" alt="logo" />
             </Link>

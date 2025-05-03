@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Types } from "mongoose";
-import { IProduct } from "@/app/admin/api/types/productsType";
+import { IProduct } from "@/app/types/productsType";
 import { IOrder, IOrdersContext } from "./OrdersContextType";
 
 // ? Context initialization

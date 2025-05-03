@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const UploadAssets = async (file : File) => {
 
-    const signatuerRes = await axios.get("http://localhost:3000/cloudinary_signature")
+    const signatuerRes = await axios.get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/cloudinary_signature`)
     const { signatuer , timestamp , CloudName  , APIKey } = signatuerRes.data
 
     const formData = new FormData();

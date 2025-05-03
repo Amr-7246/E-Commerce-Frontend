@@ -1,16 +1,18 @@
 'use client'
 
-import { IProduct } from '@/app/admin/api/types/productsType'
+import { IProduct } from '@/app/types/productsType'
 import { useEffect, useState } from 'react'
-import { Options, OptionsPage } from '../../style/AdminStyle'
-import { UploadAssets } from '../../utils/uploadOnCloudinary'
+import { UploadAssets } from '../../../utils/uploadOnCloudinary'
 import { FiPlus } from "react-icons/fi";
 import { UseCreateEntitiy } from '@/app/APIs/CreateEntitiy'
 import { UsePatchEntity } from '@/app/APIs/PatchEntitiy'
+import SelectCategory from './components/SelectCategory';
+import SelectVarients from './components/SelectVarients';
 
 interface FormProps {
     existingProduct?: IProduct
 }
+
 export default function Page({ existingProduct }: FormProps) {
 
 // ~ ############################# Hooks
@@ -20,16 +22,15 @@ export default function Page({ existingProduct }: FormProps) {
     const { mutate: editMutate, isPending: isEditing } = UsePatchEntity()
     
     const [Variants, setVariants] = useState({
-        name: '' ,
-        value: '' ,
+        options: [{ name: '' , value: '' }],
         images : [{ secure_url: '' , publicId: '' }],
         price: 0 , 
-        inventory: 0
+        inventory: 0 
     })
     const [ProductData, setProductData] = useState<IProduct>({
         name: '',
         price: 0,
-        description: 'hi',
+        description: '',
         images: [{ secure_url: '' , publicId: '' }],
         variants: [
             {
@@ -91,22 +92,6 @@ export default function Page({ existingProduct }: FormProps) {
             }
         }
     // & handle Image Upload to cloudinary
-    // & handle the product varintes if exist
-        const HandelVarintSubmit = () => {
-            setProductData((prev) => ({
-                ...prev, 
-                variants: [...prev.variants, 
-                    {
-                    options: [{ name: Variants.name, value: Variants.value }],
-                    images: [ { secure_url: Variants.images[0].secure_url, publicId: Variants.images[0].publicId } ],
-                    price: Variants.price,
-                    inventory: Variants.inventory
-                }
-                ]
-            }))
-            console.log('We created the varient Amr and here is it : ' + JSON.stringify(Variants)  )
-        }
-    // & handle the product varintes if exist
     // & handle Form Submit
         const handleSubmit = (e: React.FormEvent) => {
             e.preventDefault()
@@ -134,74 +119,50 @@ export default function Page({ existingProduct }: FormProps) {
     // & handle Form Submit
 // ~ ############################# Logic
 return (
-    <div className={`${OptionsPage}  md:!max-h-[90vh] !h-fit `} >
-        <div className={`${Options} flex-center  bg-gradient-to-tr from-black via-amber-200/30 to-black `}>
-            <form onSubmit={handleSubmit} className="max-w-md text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
+    <div className={` admin-page !bg-gradient-to-r from-black via-amber-200/20 to-black `} >
+            <form onSubmit={handleSubmit} className="max-w-md h-fit text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
                 <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50 ">
                 {isEditMode ? 'Edit Product ' : 'Create Product '}
                 </h2>
 
                 <input type="text" name="name" value={ProductData.name} onChange={handleChange} placeholder="Product Name" className="input" />
-
                 <input type="number" name="price" value={ProductData.price} onChange={handleChange} placeholder="Price" className="input" />
-
                 <input type="number" name="discount" value={ProductData.discount} onChange={handleChange} placeholder="Discount (%)" className="input" />
 
-                <input type="text" name="category" value={ProductData.category} onChange={handleChange} placeholder="Category" className="input" />
+                {/* Cate  */}
+                    <SelectCategory onCategorySelect={(id : string) => setProductData((prev) => ({ ...prev, category: id }))} />
+                {/* Cate  */}
 
                 <textarea name="shortDesc" value={ProductData.shortDesc} onChange={handleChange} placeholder="Short Description" className="input" />
 
                 <textarea name="description" value={ProductData.description} onChange={handleChange} placeholder="Full Description (optional)" className="input" />
-                <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
-                    <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        multiple 
-                        onChange={(e) => handleImageUpload( e , 'Product')} 
-                        className="hidden" 
-                    />
-                </label>
-
-                { ProductData.images.length > 0 && ProductData.images.map((image, index) => (
-                    <div className='w-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden  ' key={index} >
-                        <img className='' src={image.secure_url || undefined } />
+                {/* Products images */}
+                    <div className='bg-stone-800/50 p-3 rounded-xl'>
+                        <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
+                            <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
+                            <input 
+                                type="file" 
+                                accept="image/*" 
+                                multiple 
+                                onChange={(e) => handleImageUpload( e , 'Product')} 
+                                className="hidden" 
+                            />
+                        </label>
+                        { true  && ProductData.images.map((image, index) => (
+                            <div className='w-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden  ' key={index} >
+                                <img className='' src={image.secure_url || undefined } />
+                            </div>
+                        ))}
                     </div>
-                ))}
+                {/* Products images */}
                 {/* Varintes */}
-                    <button className='btn' type='button' onClick={() => setIsVarintes(true)} >If there is a varintes add it now </button>
-                    {   IsVarintes && 
-                        <>
-                            <div  className='flex flex-col gap-3 w-[85%] p-5 bg-stone-800 rounded-lg border border-stone-600 mx-auto ' >
-                                <div className='flex justify-between w-full '>
-                                    <input className='input w-[40%]' type="text" placeholder='name' value={Variants.name} onChange={(e) => setVariants( pre => ({...pre , name: e.target.value}))}  />
-                                    <input className='input w-[40%]' type="text" placeholder='value' value={Variants.value} onChange={(e) => setVariants( pre => ({...pre , value: e.target.value}))} />
-                                </div>
-                                <div>
-                                    <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-tr from-green-400 to-sky-500 cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
-                                        <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
-                                        <input  type="file"  accept="image/*"  multiple onChange={(e) => handleImageUpload( e , 'Varintes')}   className="hidden"  />
-                                    </label>
-                                    { Variants.images.length > 0 && Variants.images.map((image, index) => (
-                                        <div className='w-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden  ' key={index} >
-                                            <img className='' src={image.secure_url || undefined } />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className='flex justify-between w-full '>
-                                    <input type="number" name="price" value={Variants.price}  placeholder="Price"  onChange={(e) => setVariants( pre => ({...pre , price: Number(e.target.value)}))}  className="input w-[40%]" />
-                                    <input type="number" name="inventory" value={Variants.inventory}  placeholder="inventory" onChange={(e) => setVariants( pre => ({...pre , inventory: Number(e.target.value)}))}  className="input w-[40%]" />
-                                </div>
-                                <button  onClick={HandelVarintSubmit} type='button'  className='btn w-full'>Create the colliction</button>
-                            </div >
-                        </>
-                    }
+                    <SelectVarients Variants={Variants}  ProductData={ProductData} setProductData={setProductData} setVariants={setVariants} handleImageUpload={(e) => handleImageUpload( e , 'Varintes')} />
                 {/* Varintes */}
                 <button type="submit" disabled={isCreating || isEditing} className="btn w-full transition">
                 {isEditMode ? (isEditing ? 'Editing...' : 'Edit Product') : (isCreating ? 'Creating...' : 'Create Product')}
                 </button>
             </form>
-        </div>
     </div>
 )
 }
+

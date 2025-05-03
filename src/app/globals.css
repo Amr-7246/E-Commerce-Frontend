@@ -148,7 +148,10 @@
     @apply font-mono font-bold bg-background text-primary duration-500 ;
   }
   .page{
-    @apply flex items-center pt-3 overflow-hidden flex-col gap-5 md:w-[80%] max-w-[1000px] w-[90%]  ;
+    @apply flex items-center pt-3 overflow-hidden flex-col gap-5  md:w-[80%] max-w-[1000px] w-[90%]  ;
+  }
+  .admin-page{
+    @apply md:flex-1 min-h-[90vh]  w-full overflow-y-auto h-auto py-10 flex justify-center bg-gradient-to-r from-black via-amber-200/20 to-black  ;
   }
   .flex-center {
     @apply flex items-center justify-center;

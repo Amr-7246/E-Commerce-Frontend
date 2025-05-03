@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { Options, OptionsPage } from '../../style/AdminStyle'
 import Loading from '@/app/components/Loading'
 import { useSignOut } from '@/app/global/user/api/signOut'
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
@@ -13,8 +12,8 @@ export default function Page() {
     const {mutate : deleteUser} = useSignOut()
 
 return (
-    <div className={`${OptionsPage}  md:!max-h-[90vh] !h-fit `} >
-    <div className={`${Options} `}>
+    <div className={`admin-page `} >
+    <div className={` `}>
             {/* users card */}
                 {isLoading ? (
                     <div>
