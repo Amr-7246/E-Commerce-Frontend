@@ -1,7 +1,7 @@
 "use client"
 
 import React , {useState} from 'react'
-import CreatProduct from '../CreateProduct/page'
+import CreatProduct from '../CreateProduct/components/CreateProduct'
 import Loading from '@/app/components/Loading'
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import { UseDeleteEntity } from '@/app/APIs/DeleteEntitiy'
