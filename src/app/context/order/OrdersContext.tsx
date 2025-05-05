@@ -27,6 +27,8 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
             discount: 0,
             category: '', 
             shortDesc: '',
+            recommended: false,
+            inventory: 0,
           }],
           totalAmount: 0,
           status: "pending",
@@ -64,7 +66,9 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
           price: product.price,
           discount: product.discount,
           category: product.category,
-          shortDesc: product.shortDesc
+          shortDesc: product.shortDesc,
+          recommended: product.recommended ?? false,
+          inventory: product.inventory ?? 0
         };
         
         setCurrentOrder((prev) => ({
@@ -95,6 +99,8 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
             discount: 0,
             category: '', 
             shortDesc: '',
+            recommended: false,
+            inventory: 0
           }],
           totalAmount: 0,
           status: "pending",
