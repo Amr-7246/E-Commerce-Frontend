@@ -21,7 +21,7 @@ export default function Page() {
         isActive: true,
     });
     // console.log( 'Here is my All cate' + JSON.stringify(data) )
-    console.log( 'No Here is my real cate' + JSON.stringify(Categories) )
+    // console.log( 'No Here is my real cate' + JSON.stringify(Categories) )
 // ~ ################### Hooks
 // ~ ################### logics
     const handleEdit = (category: any) => {
@@ -50,11 +50,11 @@ export default function Page() {
     return (
         <div className="admin-page ">
             {isLoading ? (<Loading/>) : isError ? (<div className="text-red-500 text-center">Sorry bro, there is something wrong  </div>) : 
-            <div className="space-y-4">
+            <div className=" md:w-[70%] max-w-[600px] w-[90%] flex-col flex gap-3 ">
                 {Categories.map((cat: any) => (
                     <div
                         key={cat._id}
-                        className="p-4 rounded-lg bg-black/50 shadow flex flex-col gap-3 border border-amber-200/50"
+                        className="p-4 rounded-lg bg-black/50 shadow flex flex-col gap-3 border border-amber-200/20 text-amber-200/50 "
                     >
                         {editId === cat._id ? (
                             <>
@@ -64,7 +64,7 @@ export default function Page() {
                                     value={editedCategory.name}
                                     onChange={handleChange}
                                     placeholder="Category Name"
-                                    className="w-full px-4 py-2 rounded-lg border border-stone-300 bg-white"
+                                    className="w-full px-4 py-2 rounded-xl border border-amber-300/20 bg-orange-900/20"
                                 />
                                 <input
                                     type="text"
@@ -72,14 +72,14 @@ export default function Page() {
                                     value={editedCategory.slug}
                                     onChange={handleChange}
                                     placeholder="Slug"
-                                    className="w-full px-4 py-2 rounded-lg border border-stone-300 bg-white"
+                                    className="w-full px-4 py-2 rounded-xl border border-amber-300/20 bg-orange-900/20"
                                 />
                                 <textarea
                                     name="description"
                                     value={editedCategory.description}
                                     onChange={handleChange}
                                     placeholder="Description"
-                                    className="w-full px-4 py-2 rounded-lg border border-stone-300 bg-white"
+                                    className="w-full px-4 py-2 rounded-xl border border-amber-300/20 bg-orange-900/20"
                                 />
                                 <label className="flex items-center gap-2">
                                     <input
@@ -93,17 +93,17 @@ export default function Page() {
                                 </label>
                                 <button
                                     onClick={() => handleSave(cat._id)}
-                                    className="w-full py-2 bg-black text-amber-200 rounded-lg font-semibold hover:bg-stone-800 transition-all duration-200 flex items-center justify-center gap-2"
+                                    className="w-full py-3 cursor-pointer border border-amber-400/20 bg-black text-amber-400/50 rounded-lg font-semibold hover:bg-transparent transition-all duration-200 flex items-center justify-center gap-2"
                                 >
                                     <FiSave /> Save
                                 </button>
                             </>
                         ) : (
-                            <>
-                                <p><span className="font-bold">Name:</span> {cat.name}</p>
-                                <p><span className="font-bold">Slug:</span> {cat.slug}</p>
-                                <p><span className="font-bold">Description:</span> {cat.description}</p>
-                                <p><span className="font-bold">Status:</span> {cat.isActive ? " Active" : " Inactive"}</p>
+                            <div className="font-light text-amber-200/50 ">
+                                <p><span className="font-bold text-orange-900 text-[15px] ">Name:</span> {cat.name}</p>
+                                <p><span className="font-bold text-orange-900 text-[15px] ">Slug:</span> {cat.slug}</p>
+                                <p><span className="font-bold text-orange-900 text-[15px] ">Description:</span> {cat.description}</p>
+                                <p><span className="font-bold text-orange-900 text-[15px] ">Status:</span> {cat.isActive ? " Active" : " Inactive"}</p>
                                 {cat.image && (
                                     <div className='w-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden'>
                                         <img src={cat.image} alt="Uploaded Preview" className="object-cover w-full h-full" />
@@ -117,7 +117,7 @@ export default function Page() {
                                         <FiTrash2 size={18} />
                                     </button>
                                 </div>
-                            </>
+                            </div >
                         )}
                     </div>
                 ))}

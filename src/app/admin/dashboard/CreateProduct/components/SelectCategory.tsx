@@ -16,13 +16,13 @@ const SelectCategory = ({onCategorySelect} : { onCategorySelect : (id: string) =
         setSelectedId(id);
         onCategorySelect(id)
     };
-  return (
+return (
     <div className="p-4 text-amber-200/50 bg-stone-500/20 rounded-xl  shadow">
     <h2 className="flex items-center gap-2 text-lg font-semibold  mb-3">
         <FaTags className="text-orange-900" />
         Choose a Category
     </h2>
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 max-h-[200px] overflow-auto gap-2">
         { isLoading ? <p className="text-sm text-gray-500">Loading categories...</p> : 
         categories?.map((cat : any ) => (
         <label key={cat._id} className={`flex items-center gap-2 p-2 border-[1px] border-amber-200/50 rounded cursor-pointer transition ${ selectedId === cat._id ? 'bg-stone-800 border-orange-900' : 'bg-black/50' }`} >
@@ -36,7 +36,7 @@ const SelectCategory = ({onCategorySelect} : { onCategorySelect : (id: string) =
         ))}
     </div>
 </div>
-  )
+)
 }
 
 export default SelectCategory

@@ -4,19 +4,21 @@ interface IVariantOption {
 }
 interface IVariant {
     options: IVariantOption[];
-    images: { secure_url: string | undefined; publicId: string }[];
-    price: number;
-    inventory: number;
+    images: { secure_url: string ; publicId: string }[];
+    price: number | null ;
+    inventory: number | null ;
 }
 
 export interface IProduct  {
     _id?: string ;
     name: string;
+    recommended: boolean;
+    inventory: number | null ;
     description: string;
-    images: { secure_url: string | undefined ; publicId: string }[];
+    images: { secure_url: string | null ; publicId: string }[];
     variants: IVariant[];
-    price: number;
-    discount: number;
-    category: string | number; 
+    price: number | null ;
+    discount: number | null ;
+    category: string | number | null ; 
     shortDesc: string;
 }

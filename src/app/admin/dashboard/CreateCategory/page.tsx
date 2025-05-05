@@ -4,9 +4,14 @@ import { useState } from "react";
 import { UseCreateEntitiy } from "@/app/APIs/CreateEntitiy";
 import { UploadAssets } from "@/app/utils/uploadOnCloudinary";
 import { FiPlus } from "react-icons/fi";
+import ErrorHandler from "@/app/components/ErrorHandler";
 
 export default function Page() {
 // ~ ################### Hooks
+const [UserError, setUserError] = useState({
+    content: '' , 
+    state: ''
+});
 const [CatigroyData, setCatigroyData] = useState({
         name: "",
         slug: "",
@@ -15,7 +20,7 @@ const [CatigroyData, setCatigroyData] = useState({
         isActive: true,
     });
     const [uploading, setUploading] = useState(false);
-    const { mutate } = UseCreateEntitiy();
+    const { mutate , isError } = UseCreateEntitiy();
 // ~ ################### Hooks
 // ~ ################### Logics
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -38,19 +43,37 @@ const [CatigroyData, setCatigroyData] = useState({
                 image: ImageURL
             }));
         } catch (error) {
-            console.error("Image Upload Failed:", error);
         } finally {
             setUploading(false);
         }
     };
 
     const CreateCategory = () => {
-        mutate({ Data: CatigroyData, Route: "categories" });
-        console.log(CatigroyData)
+        if(!CatigroyData.name || !CatigroyData.slug || !CatigroyData.description) {
+            setUserError({ content: 'Please fill all the inputs' , state: "Warning" })
+            setTimeout(() => { setUserError({ content: '' , state: ""}) }, 2000);
+            return;
+        } else {
+            mutate({ Data: CatigroyData, Route: "categories" });
+        }
+        if(!isError) {
+            setCatigroyData({
+                name: "",
+                slug: "",
+                description: "",
+                image: "",
+                isActive: true,
+            });
+            setUserError({ content: 'Done pro' , state: "success" })
+            setTimeout(() => { setUserError({ content: '' , state: ""}) }, 2000);
+        } else {
+            setUserError({ content: 'Sorry bro, there is something wrong' , state: "Server Error" })
+            setTimeout(() => { setUserError({ content: '' , state: ""}) }, 2000);
+        }
     };
 // ~ ################### Logics
 return (
-    <div className="admin-page ">
+    <div className="admin-page  ">
         <form onSubmit={(e) => { e.preventDefault(); CreateCategory(); }} className="max-w-md h-fit text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
             <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50">
                 Create Category
@@ -118,6 +141,8 @@ return (
                 {uploading ? "Wait..." : "Create Category"}
             </button>
         </form>
+        <ErrorHandler UserError={UserError} />
+
     </div>
 );
 }

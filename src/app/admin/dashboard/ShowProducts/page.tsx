@@ -5,10 +5,12 @@ import CreatProduct from '../CreateProduct/components/CreateProduct'
 import Loading from '@/app/components/Loading'
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import { UseDeleteEntity } from '@/app/APIs/DeleteEntitiy'
+import VarintesCard from './VarintesCard'
 
 export default function Page() {
 // ~ ############ Hooks
     const [WhoEditing , setWhoEditing ] = useState('')
+    const [IsOpenVars , setIsOpenVars ] = useState('')
     const { data , isLoading, isFetching, isError } = UseGetEntities('products')
     const { mutate: DeletProduct , isPending } = UseDeleteEntity()
     const products = data?.data.docs
@@ -21,15 +23,15 @@ export default function Page() {
 // ~ ############ Elementes
     return (
     <div className={`admin-page `} >
-
         <div className={``}>
-            {/* Products card */}
                 {isLoading || isFetching ? ( <div> <Loading/> </div> ) : isError || (products ?? []).length < 0 ?  ( <p className="text-red-400 font-semibold"> Error loading products : </p> ) : (
-                    !isLoading && !isFetching && (products ?? []).length > 0 && (
+                  !isLoading && !isFetching && (products ?? []).length > 0 && (
+                      // & {/* Products card */}
                         <div className=" flex-center flex-col gap-5">
                             {products?.map((product: any, idx : any) => (
+                              <>
                                 <div key={idx}  className='flex gap-5 lg:flex-row flex-col '>
-                                    <div  className=" flex gap-3  bg-gradient-to-r from-black via-amber-200/30 to-black rounded-2xl min-h-[210px] min-w-[350px] overflow-hidden shadow-lg p-4 space-y-2 transition-all duration-300" >
+                                    <div  className=" flex gap-3  bg-black/50 border border-amber-200/20 rounded-2xl min-h-[210px] min-w-[350px] overflow-hidden shadow-lg p-4 space-y-2 transition-all duration-300" >
                                         {/* start Products all deets */}
                                             <div className='h-full flex-center ' >
                                                 <span className='w-[120px] h-full border-stone-700 rounded-lg overflow-hidden  '>
@@ -40,7 +42,6 @@ export default function Page() {
                                                 <h2 className="text-xl font-bold">{product.name}</h2>
                                                 <p className="text-sm text-gray-400">{product.shortDesc}</p>
                                                 <p className="text-sm text-gray-300">{product.description}</p>
-
                                                 <div className="flex items-center gap-2">
                                                     <span className="text-green-400 font-semibold">
                                                         ${product.price.toFixed(2)}
@@ -54,55 +55,14 @@ export default function Page() {
                                                 <p className="text-xs text-gray-400">
                                                     Category: <span className="italic">{product.name}</span>
                                                 </p>
-
-                                                <div className="mt-4">
-                                                    {/* vars */}
-                                                      {product.variants?.length > 0 && (
-                                                        <div className="text-sm space-y-4">
-                                                          <span className="font-medium text-gray-300 text-lg">🧬 Variants:</span>
-                                                    
-                                                          {product.variants.map((variant: any, i: number) => (
-                                                            <div
-                                                              key={i}
-                                                              className="border border-amber-400/30 bg-zinc-800/50 p-4 rounded-xl text-gray-200 shadow-md"
-                                                            >
-                                                              {/* 🏷️ Options */}
-                                                              <div className="mb-2">
-                                                                <span className="font-semibold text-amber-300">Options:</span>
-                                                                <ul className="list-disc ml-5 text-sm">
-                                                                  {variant.options?.map((opt: any, index: number) => (
-                                                                    <li key={index}>
-                                                                      {opt.name} : {opt.value}
-                                                                    </li>
-                                                                  ))}
-                                                                </ul>
-                                                              </div>
-                                                              
-                                                              {/* 💸 Price + 🧮 Inventory */}
-                                                              <p className="mb-1">
-                                                                <span className="font-semibold text-green-400">Price:</span> ${variant.price}
-                                                              </p>
-                                                              <p className="mb-2">
-                                                                <span className="font-semibold text-purple-300">Inventory:</span> {variant.inventory}
-                                                              </p>
-                                                              
-                                                              {/* 🖼️ Images */}
-                                                              <div className="flex gap-2 flex-wrap">
-                                                                {variant.images?.map((img: any, index: number) => (
-                                                                  <img
-                                                                    key={index}
-                                                                    src={img.secure_url}
-                                                                    alt="Variant Img"
-                                                                    className="w-14 h-14 object-cover rounded-md border border-gray-500"
-                                                                  />
-                                                                ))}
-                                                              </div>
-                                                            </div>
-                                                          ))}
-                                                        </div>
-                                                      )}
-                                                    </div>
-                                                    {/* vars */}
+                                                <div className='flex gap-3'>
+                                                  <p className="text-xs text-gray-400">
+                                                      It have : <span className="italic">{product.variants?.length} vars </span>
+                                                  </p>
+                                                  <button className='btn h-fit mt-2' onClick={() => { IsOpenVars === idx ? setIsOpenVars('') : setIsOpenVars(idx) } } >
+                                                      {IsOpenVars === idx ? 'Hide Variants' : 'Show Variants'}
+                                                  </button>
+                                                </div>
                                             </div>
                                         {/* End Products all deets */}
                                     </div>
@@ -118,14 +78,17 @@ export default function Page() {
                                         </div>
                                     {/* Edittor form */}
                                 </div>
+                                <div className={` ${ IsOpenVars === idx ? ' block ' : 'hidden'} w-full `}>
+                                  <VarintesCard product={product} />
+                                </div>
+                              </>
                             ))}
                         </div>
+                  // & {/* Products card */}
                     )
                 )}
-            {/* Products card */}
         </div>
-        </div>
+      </div>
     )
 }
 // ~ ############ Elementes
-
