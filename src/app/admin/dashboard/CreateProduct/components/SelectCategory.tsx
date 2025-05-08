@@ -22,7 +22,7 @@ return (
         <FaTags className="text-orange-900" />
         Choose a Category
     </h2>
-    <div className="grid grid-cols-2 max-h-[200px] overflow-auto gap-2">
+    <div className="grid lg:grid-cols-1 grid-cols-2 max-h-[200px] lg:max-h-[400px] overflow-auto gap-2">
         { isLoading ? <p className="text-sm text-gray-500">Loading categories...</p> : 
         categories?.map((cat : any ) => (
         <label key={cat._id} className={`flex items-center gap-2 p-2 border-[1px] border-amber-200/50 rounded cursor-pointer transition ${ selectedId === cat._id ? 'bg-stone-800 border-orange-900' : 'bg-black/50' }`} >

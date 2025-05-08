@@ -138,6 +138,38 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
+/* ~ Start SVG Manpulation */
+  .clip-mask-1 {
+    -webkit-mask-image: url('/SVG/blob-mask-1.svg');
+    mask-image: url('/SVG/blob-mask-1.svg');
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+
+  .clip-mask-2 {
+    -webkit-mask-image: url('/SVG/blob-mask-2.svg');
+    mask-image: url('/SVG/blob-mask-2.svg');
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+
+  .clip-mask-3 {
+    -webkit-mask-image: url('/SVG/blob-mask-3.svg');
+    mask-image: url('/SVG/blob-mask-3.svg');
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+
+/* ~ Start SVG Manpulation */
 
 
 @layer base {

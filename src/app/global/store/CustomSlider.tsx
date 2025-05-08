@@ -12,7 +12,7 @@ import { useGlobalContext } from '@/app/context/GlobalContext/GlobalContext'
 const CustomSlider = ({ title , category }: { title: string , category : string }) => {
 // ~ ########## Data & Hooks
     const {setWhichCatigory} = useGlobalContext()
-    const EndPoint = category == 'all' ? 'products?limit=6' : `products?category=${category}&limit=6`
+    const EndPoint = category == 'recommended' ? 'products?limit=6&recommended=true' : `products?category=${category}&limit=6`
     const { createOrder, clearOrder } = useOrder()
     const { data , isError, isLoading } = UseGetEntities(EndPoint)
     const products = data?.data.docs
@@ -28,7 +28,7 @@ const CustomSlider = ({ title , category }: { title: string , category : string 
         })
     }
 // ~ ########## Logics
-    const Slider_Btn =  'absolute cursor-pointer top-1/2 -translate-y-1/2 md:bg-black/50 bg-orange-900 p-2  rounded-full text-amber-200 hover:text-orange-900 transition z-10'
+    const Slider_Btn =  'absolute cursor-pointer top-1/2 -translate-y-1/2 md:bg-black/50 bg-orange-900 p-2  rounded-full text-amber-200 md:hover:text-orange-900 hover:text-black transition z-10'
     return (
     <div className=" w-full flex-center flex-col gap-3 ">
         {/* Slider Header */}

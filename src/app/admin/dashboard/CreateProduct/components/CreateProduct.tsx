@@ -21,6 +21,7 @@ export default function CreateProduct({ existingProduct }: FormProps) {
     const isEditMode = !!existingProduct
     const { mutate: createMutate, isError : CreationError , isPending: isCreating } = UseCreateEntitiy()
     const { mutate: editMutate, isError : EditingError,isPending: isEditing } = UsePatchEntity()
+    const [VarientImages, setVarientImages] = useState<any>({ secure_url: '' , publicId: '' })
     
     const [Variants, setVariants] = useState<VariantType>({
         options: [{ name: '' , value: '' }],
@@ -82,10 +83,7 @@ export default function CreateProduct({ existingProduct }: FormProps) {
                         }))
                         console.log( ' We uploaded the image amr and here is its data : ' + data)
                     }else{
-                        setVariants((prv) => ({
-                            ...prv,
-                            images: [...prv.images, { secure_url: data.ImageURL, publicId: data.ImageId }]
-                        }))
+                        setVarientImages({ secure_url: data.ImageURL, publicId: data.ImageId })
                         console.log( ' We uploaded the image amr and here is its data : ' + data)
                     }
 
@@ -139,57 +137,62 @@ export default function CreateProduct({ existingProduct }: FormProps) {
     // & handle Form Submit
 // ~ ############################# Logic
 return (
-    <div className={` admin-page !bg-gradient-to-r from-black via-amber-200/20 to-black `} >
-            <form onSubmit={handleSubmit} className="max-w-md h-fit text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
-                <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50 ">
-                {isEditMode ? 'Edit Product ' : 'Create Product '}
-                </h2>
-
-                <input type="text" name="name" value={ProductData.name} onChange={handleChange} placeholder="Product Name" className="input" />
-                <input type="number" name="price" value={ProductData.price??  ''} onChange={handleChange} placeholder="Price" className="input" />
-                <input type="number" name="discount" value={ProductData.discount??  ''} onChange={handleChange} placeholder="Discount (%)" className="input" />
-                <input type="number" name="inventory" value={ProductData.inventory??  ''} onChange={handleChange} placeholder="inventory " className="input" />
-                <label  className={`flex items-center gap-2 p-2 border-[1px] border-amber-200/50 rounded cursor-pointer transition ${ ProductData.recommended ? 'bg-stone-800 border-orange-900' : 'bg-black/50' }`} >
-                    <input
-                        type="checkbox"
-                        checked={ProductData.recommended}
-                        onChange={() => setProductData((prev) => ({ ...prev, recommended: !prev.recommended }))}
-                        className="accent-orange-900"/>
-                    <span className="capitalize text-amber-200/50 text-sm">Recommended</span>
-                </label>
-                {/* Cate  */}
-                    <SelectCategory onCategorySelect={(id : string) => setProductData((prev) => ({ ...prev, category: id }))} />
-                {/* Cate  */}
-
-                <textarea name="shortDesc" value={ProductData.shortDesc} onChange={handleChange} placeholder="Short Description" className="input" />
-
-                <textarea name="description" value={ProductData.description} onChange={handleChange} placeholder="Full Description (optional)" className="input" />
-                {/* Products images */}
-                    <div className='bg-stone-800/50 p-3 flex flex-col gap-2 rounded-xl'>
-                        <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
-                            <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
-                            <input 
-                                type="file" 
-                                accept="image/*" 
-                                multiple 
-                                onChange={(e) => handleImageUpload( e , 'Product')} 
-                                className="hidden" 
-                            />
+    <div className={` ${isEditMode ? '!from-transparent !via-transparent !to-transparent md:!h-fit ' : '' } admin-page  `} >
+            <form onSubmit={handleSubmit} className=" w-[90%] flex flex-col lg:flex-col gap-3 h-fit text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
+                <div className='lg:w-full hi-fit  flex-center  ' >
+                    <h2 className="text-2xl font-bold w-fit text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50 ">
+                        {isEditMode ? 'Edit Product ' : 'Create Product '}
+                    </h2>
+                </div>
+                <div className={` ${isEditMode ? 'lg:!flex-col' : ''}  lg:flex-row flex-col gap-5 flex`}>
+                    <div className='flex flex-col flex-1 gap-5 ' >
+                        <input type="text" name="name" value={ProductData.name} onChange={handleChange} placeholder="Product Name" className="input" />
+                        <input type="number" name="price" value={ProductData.price??  ''} onChange={handleChange} placeholder="Price" className="input" />
+                        <input type="number" name="discount" value={ProductData.discount??  ''} onChange={handleChange} placeholder="Discount (%)" className="input" />
+                        <input type="number" name="inventory" value={ProductData.inventory??  ''} onChange={handleChange} placeholder="inventory " className="input" />
+                        <label  className={`flex items-center gap-2 p-2 border-[1px] border-amber-200/50 rounded cursor-pointer transition ${ ProductData.recommended ? 'bg-stone-800 border-orange-900' : 'bg-black/50' }`} >
+                            <input
+                                type="checkbox"
+                                checked={ProductData.recommended}
+                                onChange={() => setProductData((prev) => ({ ...prev, recommended: !prev.recommended }))}
+                                className="accent-orange-900"/>
+                            <span className="capitalize text-amber-200/50 text-sm">Recommended</span>
                         </label>
-                        <div className ={` ${ProductData.images.length > 0 ? '' : '' } p-3 flex rounded-xl overflow-auto gap-2 `} >
-                            { ProductData.images.map((image, index) => (
-                                <div className={`' ${ image.secure_url ? 'block': "hidden"} min-w-[100px] w-[150px] min-h-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden  '`} key={index} >
-                                    <img className='' src={image.secure_url || undefined } />
-                                </div>
-                            ))}
-                        </div>
+                        {/* Cate  */}
+                            <SelectCategory onCategorySelect={(id : string) => setProductData((prev) => ({ ...prev, category: id }))} />
+                        {/* Cate  */}
                     </div>
-                {/* Products images */}
-                {/* Varintes */}
-                    <SelectVarients ServerVarsError={CreationError} Variants={Variants}  ProductData={ProductData} setProductData={setProductData} setVariants={setVariants} handleImageUpload={(e) => handleImageUpload( e , 'Varintes')} />
-                {/* Varintes */}
-                <button type="submit" disabled={isCreating || isEditing} className="btn w-full transition">
-                {isEditMode ? (isEditing ? 'Editing...' : 'Edit Product') : (isCreating ? 'Creating...' : 'Create Product')}
+                    <div className='flex flex-col flex-1 gap-5'>
+                        <textarea name="shortDesc" value={ProductData.shortDesc} onChange={handleChange} placeholder="Short Description" className="input" />
+                        <textarea name="description" value={ProductData.description} onChange={handleChange} placeholder="Full Description (optional)" className="input" />
+                        {/* Products images */}
+                            <div className='bg-stone-800/50 p-3 flex flex-col gap-2 rounded-xl'>
+                                <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
+                                    <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
+                                    <input 
+                                        type="file" 
+                                        accept="image/*" 
+                                        multiple 
+                                        onChange={(e) => handleImageUpload( e , 'Product')} 
+                                        className="hidden" 
+                                    />
+                                </label>
+                                <div className ={` ${ProductData.images.length > 0 ? '' : '' } p-3 flex rounded-xl overflow-auto gap-2 `} >
+                                    { ProductData.images.map((image, index) => (
+                                        <div className={`' ${ image.secure_url ? 'block': "hidden"} min-w-[100px] w-[150px] min-h-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden  '`} key={index} >
+                                            <img className='' src={image.secure_url || undefined } />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        {/* Products images */}
+                        {/* Varintes */}
+                            <SelectVarients VarientImages={VarientImages} ServerVarsError={CreationError} Variants={Variants}  ProductData={ProductData} setProductData={setProductData} setVariants={setVariants} handleImageUpload={(e) => handleImageUpload( e , 'Varintes')} />
+                        {/* Varintes */}
+                    </div>
+                </div>
+                <button type="submit" disabled={isCreating || isEditing} className="btn w-full border-amber-200/30 hover:!border-transparent transition">
+                    {isEditMode ? (isEditing ? 'Editing...' : 'Edit The Product') : (isCreating ? 'Creating...' : 'Create The Product')}
                 </button>
             </form>
     </div>

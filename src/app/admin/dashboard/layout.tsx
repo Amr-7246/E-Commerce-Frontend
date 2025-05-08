@@ -6,7 +6,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
             <div className='bg-stone-900 flex flex-center gap-3 pb-3 text-stone-300 h-fit sticky w-full  border-b border-stone-600 '>
                 <GlobalNavBar/>
             </div>
-            <div className='flex-row min:h-screen h-auto gap-0 flex'>
+            <div className='flex-row min:h-screen gap-0 flex'>
                 <DashboardNav />
                 {children}
             </div>
