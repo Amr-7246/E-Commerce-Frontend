@@ -5,8 +5,9 @@ import ReactQueryProvider from "./GlobalSetup/ReactQuery/ReactQuryProviders";
 import ReduxProvider from "./GlobalSetup/Redux/ReduxProvider";
 import { OrderProvider } from "./context/order/OrdersContext";
 import { UserInfoContextProvider } from "./context/users/userInfoContext";
-import { GlobalContextProvider } from "./context/GlobalContext/GlobalContext";
+import { GlobalContextProvider } from "./context/Global/GlobalContext";
 import { Toaster } from "react-hot-toast";
+import { CartContextProvider } from "./context/cart/CartContext";
 // import { OrderProvider } from "./context/order/order"; // Ensure this path is correct
 
 const geistSans = Geist({
@@ -37,12 +38,14 @@ export default function RootLayout({
         {/* <ReduxProvider > */}
         <OrderProvider>
           <GlobalContextProvider>
-            <UserInfoContextProvider>
-              <ReactQueryProvider>
-                <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-                {children}
-              </ReactQueryProvider>
-            </UserInfoContextProvider>
+            <CartContextProvider>
+              <UserInfoContextProvider>
+                <ReactQueryProvider>
+                  <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+                  {children}
+                </ReactQueryProvider>
+              </UserInfoContextProvider>
+            </CartContextProvider>
           </GlobalContextProvider>
         </OrderProvider>
         {/* </ReduxProvider> */}

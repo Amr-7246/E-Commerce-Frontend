@@ -4,12 +4,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import { IoCloseOutline } from "react-icons/io5";
+import { useCartContext } from '../context/cart/CartContext';
+import { useUserInfoContext } from '../context/users/userInfoContext';
 
 const GlobalNav = () => {
+    const { UserInfo : user } = useUserInfoContext()
     const navRef = useRef<HTMLDivElement>(null);
+    const {CartProducts} = useCartContext()
+    const ProductsOfCart = CartProducts?.products 
     const [IsOpend, setIsOpend] = useState(false)
     const curentPath = usePathname()
-    const options = [
+    let options = [
         {
         name: 'Home',
         href: '/global/home',
@@ -30,8 +35,22 @@ const GlobalNav = () => {
         href: '/admin/dashboard/CreateProduct',
         fake_href: '/admin/dashboard/',
         },
-        
+        {
+        name: 'Portfolio',
+        href: '/global/user/portfolio',
+        fake_href: '/global/user/portfolio',
+        }
     ]
+    useEffect(() => {
+        if(user?.name !== ''){
+            options.push({
+                name: 'Portfolio',
+                href: '/global/user/portfolio',
+                fake_href: '/global/user/portfolio',
+            })
+            console.log(options)
+        }
+    }, [user])
     useEffect(() => {
         const handleResize = () => {
             const IsSmall = !!( window.innerWidth < 768 )
@@ -59,13 +78,42 @@ return (
             </div>
             <div className='flex-center lg:gap-8 gap-4 text-amber-200 '>
                 {options.map((option, idx) => (
-                    <Link className={`${curentPath.includes(option.fake_href) ? '!text-orange-900' : ''} hover:!text-orange-900 duration-500 cursor-pointer`} key={idx} href={option.href}>{option.name}</Link>
+                    option.name == 'Cart' && ProductsOfCart.length > 0 ? 
+                    <div className='flex justify-between items-center gap-2' key={idx}>
+                        <Link 
+                            className={`${curentPath.includes(option.fake_href) ? '!text-orange-900' : ''} hover:!text-orange-900 duration-500 cursor-pointer`} key={idx} 
+                            href={option.href}>
+                            {option.name}
+                        </Link>
+                        <span className='bg-orange-950 w-[25px] flex-center text-[11px] duration-700 h-[25px] text-amber-200 border border-amber-200 p-3 rounded-full'> {ProductsOfCart.length}</span>
+                    </div>
+                    :
+                    option.name == 'Portfolio' && user?.name === ''  ?
+                    <Link 
+                        className={` hidden ${curentPath.includes(option.fake_href) ? '!text-orange-900' : ''} hover:!text-orange-900 duration-500 cursor-pointer`} key={idx} 
+                        href={option.href}>
+                        {option.name}
+                    </Link> 
+                    :
+                    <Link 
+                        className={`${curentPath.includes(option.fake_href) ? '!text-orange-900' : ''} hover:!text-orange-900 duration-500 cursor-pointer`} key={idx} 
+                        href={option.href}>
+                        {option.name}
+                    </Link> 
                 ))}
             </div>
-            <div className='flex-center gap-2'>
-                <Link href={"/global/user/logIn"} className=' btn'>log In</Link>
-                <Link href={"/global/user/signIn"} className='btn  hover:!via-black  hover:from-amber-300/30 hover:to-amber-300/30  from-amber-200/30 via-black to-amber-200/30 '>Sign In</Link>
-            </div>
+            {
+                user?.name === '' ? 
+                    <div className='flex-center gap-2'>
+                    <Link href={"/global/user/logIn"} className=' btn'>log In</Link>
+                    <Link href={"/global/user/signIn"} className='btn  hover:!via-black  hover:from-amber-300/30 hover:to-amber-300/30  from-amber-200/30 via-black to-amber-200/30 '>Sign In</Link>
+                    </div> 
+                :
+                    <div className='flex-center gap-2'>
+                        <div className='h-[50px] w-[50px] rounded-full bg-amber-200'></div>
+                        <Link href={"/global/user/logIn"} className=' btn'>Sign out</Link>
+                    </div> 
+            }
         </nav >
     {/* Wide nav bar */}
     {/* mobile nav bar */}
@@ -79,7 +127,7 @@ return (
             </div>
         </nav>
         {/* Sid Bar */}
-            <nav className={`  absolute ${IsOpend ? "translate-x-[0%]" : "translate-x-[-100%]" } left-0 top-0 md:hidden z-20 flex h-screen duration-1000 transition-all w-full `}>
+            <nav className={` z-20 absolute ${IsOpend ? "translate-x-[0%]" : "translate-x-[-100%]" } left-0 top-0 md:hidden z-20 flex h-screen duration-1000 transition-all w-full `}>
                 <div className=' text-stone-300 bg-stone-900 w-[70%] border-r border-stone-600 '>
                     <div className='border-b flex justify-end border-black px-5 '>
                         <div onClick={() => setIsOpend(false)}  className={`flex-center group items-end flex-col w-[60px] h-[60px] gap-2 cursor-pointer`}>
@@ -91,10 +139,17 @@ return (
                             <Link onClick={() => setIsOpend(false)}  className={`${curentPath == option.href ? '!text-orange-900' : 'text-stone-500'} hover:!text-stone-300 font-black font-mono duration-500 py-5 px-3 w-full border-b border-stone-600 cursor-pointer`} key={idx} href={option.href}>{option.name}</Link>
                         ))}
                     </div>
-                    <div className='flex-center mt-10 !justify-around '>
-                        <Link onClick={() => setIsOpend(false)} href={"/global/user/logIn"} className=' btn w-[40%]'>log In</Link>
-                        <Link onClick={() => setIsOpend(false)} href={"/global/user/signIn"} className='btn w-[40%]  hover:!via-black  hover:from-amber-300/30 hover:to-amber-300/30  from-amber-200/30 via-black to-amber-200/30 '>Sign In</Link>
-                    </div>
+                    {
+                        user?.name === '' ? 
+                        <div className='flex-center mt-10 !justify-around '>
+                            <Link onClick={() => setIsOpend(false)} href={"/global/user/logIn"} className=' btn w-[40%]'>log In</Link>
+                            <Link onClick={() => setIsOpend(false)} href={"/global/user/signIn"} className='btn w-[40%]  hover:!via-black  hover:from-amber-300/30 hover:to-amber-300/30  from-amber-200/30 via-black to-amber-200/30 '>Sign In</Link>
+                        </div> 
+                        :
+                        <div className='flex-center mt-10 !justify-around '>
+                            <Link onClick={() => setIsOpend(false)} href={"/global/user/logIn"} className=' btn w-[40%]'>Sign out</Link>
+            </div>
+                    }
                 </div>
                 {
                 IsOpend &&

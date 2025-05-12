@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSignUp } from "../api/signUp";
+import toast from "react-hot-toast";
 
 export interface Iuse {
     name : string  , 
@@ -9,7 +10,7 @@ export interface Iuse {
     password : string , 
 }
 export default function Page() {
-    const { mutate, status } = useSignUp();
+    const { mutate, status , isError } = useSignUp();
     const isLoading = status === "pending" ;
     const [formData, setFormData] = useState<Iuse>({
     name : '' , 
@@ -27,14 +28,24 @@ export default function Page() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         mutate(formData);
+        if(isError) {
+            toast.error("There is some thing wrong . . try again ");
+        }else{
+            toast.success("Sign up successful");
+            setFormData({
+                name : '' , 
+                email: "",
+                password: ""
+            });
+        }
     };
 
 return (
     <div className="page">
-        <form onSubmit={handleSubmit} className=" p-8 rounded-lg shadow-2xl md:w-[70%] max-w-[500px] flex-center flex-col bg-gradient-to-r from-black via-amber-200/30 to-black text-stone-400"> 
-            <h2 className="text-3xl font-bold text-center mb-8 text-stone-900">Sign In</h2>
-            <div className="mb-6">
-                <label className="block text-sky-500 mb-2" htmlFor="email">
+        <form onSubmit={handleSubmit} className="text-orange-900 p-8 rounded-lg w-full max-w-[700px] flex-center flex-col bg-gradient-to-r from-black/50 via-amber-200/20 to-black/50"> 
+            <h2 className="text-3xl font-bold text-center mb-8 text-[35px]  text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-950 to-amber-200/50 ">Sign In</h2>
+            <div className="mb-6 ">
+                <label className="block  mb-2" htmlFor="email">
                     Name
                 </label>
                 <input
@@ -48,7 +59,7 @@ return (
             </div>
 
             <div className="mb-6">
-                <label className="block text-sky-500 mb-2" htmlFor="email">
+                <label className="block  mb-2" htmlFor="email">
                     Email
                 </label>
                 <input
@@ -62,7 +73,7 @@ return (
             </div>
 
             <div className="mb-6">
-                <label className="block text-sky-500 mb-2" htmlFor="password">
+                <label className="block  mb-2" htmlFor="password">
                     Password
                 </label>
                 <input
@@ -75,7 +86,7 @@ return (
                 />
             </div>
             <div className='w-full flex-center gap-5'>
-                <button type="submit" disabled={isLoading} className={`btn w-[70%] `} >
+                <button type="submit" disabled={isLoading} className={`btn text-amber-200/50 hover:!text-amber-300/50 !border-transparent !from-stone-950 !via-orange-950 !to-stone-950 w-[70%] `} >
                     {isLoading ? "Signing In..." : "Sign In "}
                 </button>
             </div>

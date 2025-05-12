@@ -2,6 +2,7 @@
 import { HeroHighlightDemo } from "@/app/components/HighLight";
 import SwiperStore from "../store/CustomSlider";
 import { UseGetEntities } from "@/app/APIs/GetEntitiy";
+import Link from "next/link";
 
 export default function Page() {
     const {data} = UseGetEntities('categories')
@@ -20,7 +21,9 @@ return (
                     </div>
                     <div className="relative h-full rounded-lg overflow-hidden">
                         <div className={`${Image_Banner_cover}`} >
-                            <p className="text-[30px] font-black text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-sky-600 to-green-600">Shop Now!</p>
+                            <Link href={"/global/store"} className="text-[20px] md:text-[20px] font-medium text-stone-900 hover:border-amber-200 hover:text-transparent hover:bg-clip-text duration-700 rounded-md border border-orange-950 px-5 py-1 backdrop-blur-2xl bg-gradient-to-r from-amber-200/50 via-orange-900/50 to-amber-200/50 hover:from-amber-200 hover:to-amber-200 hover:via-orange-700" >
+                                Shop Now!
+                            </Link>
                         </div>
                         <img className={`${Image_Banner_Itself}  `} src='/assets/photo_1_2025-04-29_20-43-39.jpg' alt="banner" />
                     </div>

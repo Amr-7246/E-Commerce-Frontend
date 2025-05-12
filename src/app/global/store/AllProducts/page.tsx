@@ -8,7 +8,7 @@ import { IoCloseOutline } from 'react-icons/io5'
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
-import { useGlobalContext } from '@/app/context/GlobalContext/GlobalContext'
+import { useGlobalContext } from '@/app/context/Global/GlobalContext'
 import Link from 'next/link'
 
 export default function Page() {
@@ -109,7 +109,7 @@ return (
                                             <p className="text-xs text-amber-200 italic"> variants Number : {product.variants.length} </p>
                                         </div>
                                         <div className=' w-full flex-center'>
-                                            <Link href='/global/order'  className='btn !w-full ' onClick={() =>{ clearOrder() ; createOrder(product) }} >Buy Now</Link>
+                                            <Link href='/global/order'  className='btn !w-full ' onClick={() =>{ clearOrder() ; createOrder(product ,  '' ) }} >Buy Now</Link>
                                         </div>
                                     </div>
                             ))}

@@ -58,7 +58,7 @@ return (
             </nav>
         </div>
         {/* mobile nav bar */}
-        <nav  className=" md:hidden absolute overflow-hidden top-26 border border-amber-200/50 bg-orange-900/50 p-2 rounded-full h-[50px] w-[50px] left-5 ">
+        <nav  className=" z-2 md:hidden absolute overflow-hidden top-26 border border-amber-200/50 bg-orange-900/50 p-2 rounded-full h-[50px] w-[50px] left-5 ">
             <div onClick={() => {setIsOpend(true); navRef.current?.scrollIntoView({ behavior: "smooth" });}}  className=" h-full w-full flex-center group items-end flex-col gap-2 cursor-pointer">
                 <span className={` ${IsOpend ? 'w-full  group-hover:w-1/2 ' : ' w-1/2 group-hover:w-full' } block  h-[1px] bg-amber-200/50 transition-all duration-800 ease-in-out `}></span>
                 <span className="block w-full h-[1px] bg-amber-200/50 transition-all duration-300 ease-in-out"></span>

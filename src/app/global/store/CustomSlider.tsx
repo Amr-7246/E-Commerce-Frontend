@@ -1,19 +1,22 @@
 'use client'
 
-import React, { use, useRef } from 'react'
+import React, { use, useRef ,useState  } from 'react'
 import Loading from '@/app/components/Loading'
 import { useOrder } from '@/app/context/order/OrdersContext'
 import { redirect } from 'next/navigation'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import Link from 'next/link'
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
-import { useGlobalContext } from '@/app/context/GlobalContext/GlobalContext'
+import { useGlobalContext } from '@/app/context/Global/GlobalContext'
+import { ICart, useCartContext } from '@/app/context/cart/CartContext'
 
 const CustomSlider = ({ title , category }: { title: string , category : string }) => {
 // ~ ########## Data & Hooks
     const {setWhichCatigory} = useGlobalContext()
-    const EndPoint = category == 'recommended' ? 'products?limit=6&recommended=true' : `products?category=${category}&limit=6`
     const { createOrder, clearOrder } = useOrder()
+    const {setCartProducts} = useCartContext()
+    const [AddedToCart, setAddedToCart] = useState<string[]>([])
+    const EndPoint = category == 'recommended' ? 'products?limit=6&recommended=true' : `products?category=${category}&limit=6`
     const { data , isError, isLoading } = UseGetEntities(EndPoint)
     const products = data?.data.docs
     const sliderRef = useRef<HTMLDivElement>(null)
@@ -32,7 +35,7 @@ const CustomSlider = ({ title , category }: { title: string , category : string 
     return (
     <div className=" w-full flex-center flex-col gap-3 ">
         {/* Slider Header */}
-            <div className='w-[85%] md:w-[85%] md:text-[19px] text-[13px]  flex-center gap-2'>
+            <div className='w-[85%] md:w-[85%] md:text-[19px] text-[17px]  flex-center gap-2'>
                 <div className=' hidden md:flex md:flex-1 bg-black/50 border-amber-200/20 flex-center rounded-xl p-5 border-[1px]'>
                     <span  className="text-[18px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50" >{title}</span>
                 </div>
@@ -67,16 +70,34 @@ const CustomSlider = ({ title , category }: { title: string , category : string 
                                         <p className="text-xs text-amber-200 italic"> variants Number : {product.variants.length} </p>
                                     {/* Product Deets */}
                                     {/* Add to cart button */}
-                                        <button
-                                            className="w-full cursor-pointer py-2 px-4 bg-orange-900 text-amber-200 font-semibold rounded-xl hover:bg-amber-200 hover:text-orange-900 transition"
-                                            onClick={() => {
-                                                clearOrder()
-                                                createOrder(product)
-                                                redirect('/global/order')
-                                            }}
-                                        >
-                                            Add to Cart
-                                        </button>
+                                        <div className='flex justify-between'>
+                                            <button
+                                                className={` ${AddedToCart.includes(product._id) ? 'bg-orange-900/50 text-amber-200 border/50 border-amber-200/50 ' : 'bg-orange-900 text-amber-200 '} duration-700 cursor-pointer py-2 px-4 font-semibold rounded-xl hover:bg-amber-200 hover:text-orange-900 transition`}
+                                                onClick={() => {
+                                                    setAddedToCart((prev) => [...prev, product._id]);
+                                                    setCartProducts((prev: ICart) => ({
+                                                        ...prev,
+                                                        products: [...prev.products, product],
+                                                        totalPrice: prev.totalPrice + product.price,
+                                                        totalQuantity: prev.totalQuantity + 1,
+                                                    }));
+                                                }}
+                                            >
+                                                {AddedToCart.includes(product._id) ? 'Added . . Go to cart ?' : 'Add to Cart'}
+                                            </button>
+                                            { !AddedToCart.includes(product._id) &&
+                                                <Link 
+                                                    className=" cursor-pointer py-2 px-4 text-orange-900 bg-amber-200 font-semibold rounded-xl hover:bg-orange-900 hover:text-amber-200 duration-700 transition"
+                                                    href={`/global/order`} 
+                                                    onClick={() => {
+                                                        createOrder(product , '')
+                                                    }}
+                                                >
+                                                    Buy Now
+                                                </Link>
+                                            }
+
+                                        </div>
                                     {/* Add to cart button */}
                                 </div>
                             ))}

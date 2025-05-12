@@ -3,7 +3,12 @@ import { IProduct } from "@/app/types/productsType";
 // ? Type definitions matching your backend schema
 
 export type IOrder = {
-    customer: string;
+    customer: {
+        name: string;
+        email: string;
+        phone: number;
+        address: string;
+    },
     seller: string;
     items: IProduct[];
     totalAmount: number;
@@ -15,7 +20,7 @@ export type IOrder = {
 
 export type IOrdersContext = {
     currentOrder: IOrder | null;
-    createOrder: (product: IProduct) => void;
+    createOrder: (product: IProduct , customerD : any ) => void;
     clearOrder: () => void;
     setCurrentOrder?: React.Dispatch<React.SetStateAction<IOrder | null>>;
 };

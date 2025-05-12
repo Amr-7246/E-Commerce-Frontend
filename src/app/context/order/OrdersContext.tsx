@@ -10,7 +10,12 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
   export const OrderProvider = ({ children }: { children: ReactNode }) => {
     // ~ ################## Real Data
         const [currentOrder, setCurrentOrder] = useState<IOrder | null>({
-          customer: "",
+          customer: {
+              name: "",
+              email: "",
+              phone: 0,
+              address: "",
+          },
           seller: "",
           items: [{
             _id: '' ,
@@ -38,10 +43,7 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
         });
     // ~ ################## Real Data
     // ~ ################## create Order Function
-      const createOrder = (product: IProduct) => {
-        const firstVariant = product.variants?.[0];
-      
-        // if (!firstVariant) return console.warn("Product has no variants");
+      const createOrder = (product: IProduct , customerD : any ) => {
       
         const newItem: IProduct  = {
           _id: product._id,
@@ -73,8 +75,16 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
         
         setCurrentOrder((prev) => ({
           ...prev!,
+          customer: {
+              name: customerD.name,
+              email: customerD.email,
+              phone: customerD.phone,
+              address: customerD.address,
+          },
+          paymentStatus : 'pending' ,
+          seller: "",
           items: [newItem],
-          totalAmount: (prev?.totalAmount || 0) ,
+          totalAmount: (customerD.totalAmount || 0) ,
           updatedAt: new Date(),
         }));
       };
@@ -82,7 +92,12 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
     // ~ ################## clear Order Function
       const clearOrder = () => {
         setCurrentOrder({
-          customer: "",
+          customer: {
+              name: "",
+              email: "",
+              phone: 0,
+              address: "",
+          },
           seller: "",
           items: [{
             _id: '' ,

@@ -7,10 +7,11 @@ import { useUserInfoContext } from "@/app/context/users/userInfoContext";
 
 export default function Page() {
   const { UserInfo : user } = useUserInfoContext()
+  console.log(user)
   // const { data: user , isLoading , isError } = useGetUserData()
 
   return (
-    <div className="min-h-screen w-[80%] rounded-xl flex items-center shadow-2xl p-8 flex-col bg-gradient-to-br from-gray-900 via-black/50 to-stone-800 p-6 border border-stone-700">
+    <div className="min-h-[80vh] w-[80%] rounded-xl flex items-center shadow-2xl flex-col bg-gradient-to-br from-gray-900 via-black/50 to-stone-800 p-6 border border-stone-700">
         <div className="border-b border-stone-600 p-3 w-full flex justify-between mb-5 items-center">
           <h1 className="text-3xl font-bold text-sky-500 mb-2">{user?.name ?? "Anonymous "}</h1>
         </div>
