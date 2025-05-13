@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useAxiosInterceptor } from "../global/user/api/refreshTokens"
+import { useAxiosInterceptor } from "../global/user/Auth/refreshTokens"
 import toast from "react-hot-toast"
 import axios from "axios"
 

@@ -6,8 +6,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { IoCloseOutline } from "react-icons/io5";
 import { useCartContext } from '../context/cart/CartContext';
 import { useUserInfoContext } from '../context/users/userInfoContext';
+import { useLogOut } from '../global/user/Auth/logOut';
+import { useSignOut } from '../global/user/Auth/signOut';
+import toast from 'react-hot-toast';
 
 const GlobalNav = () => {
+    const { mutate : logOut } = useLogOut()
+    // const { mutate : DeleteUser } = useSignOut()
     const { UserInfo : user } = useUserInfoContext()
     const navRef = useRef<HTMLDivElement>(null);
     const {CartProducts} = useCartContext()
@@ -42,7 +47,7 @@ const GlobalNav = () => {
         }
     ]
     useEffect(() => {
-        if(user?.name !== ''){
+        if(user !== null){
             options.push({
                 name: 'Portfolio',
                 href: '/global/user/portfolio',
@@ -88,7 +93,7 @@ return (
                         <span className='bg-orange-950 w-[25px] flex-center text-[11px] duration-700 h-[25px] text-amber-200 border border-amber-200 p-3 rounded-full'> {ProductsOfCart.length}</span>
                     </div>
                     :
-                    option.name == 'Portfolio' && user?.name === ''  ?
+                    option.name == 'Portfolio' && user == null  ?
                     <Link 
                         className={` hidden ${curentPath.includes(option.fake_href) ? '!text-orange-900' : ''} hover:!text-orange-900 duration-500 cursor-pointer`} key={idx} 
                         href={option.href}>
@@ -103,7 +108,7 @@ return (
                 ))}
             </div>
             {
-                user?.name === '' ? 
+                user == null ? 
                     <div className='flex-center gap-2'>
                     <Link href={"/global/user/logIn"} className=' btn'>log In</Link>
                     <Link href={"/global/user/signIn"} className='btn  hover:!via-black  hover:from-amber-300/30 hover:to-amber-300/30  from-amber-200/30 via-black to-amber-200/30 '>Sign In</Link>
@@ -111,7 +116,7 @@ return (
                 :
                     <div className='flex-center gap-2'>
                         <div className='h-[50px] w-[50px] rounded-full bg-amber-200'></div>
-                        <Link href={"/global/user/logIn"} className=' btn'>Sign out</Link>
+                        <button onClick= {() => logOut() }  className=' btn'>Sign out</button>
                     </div> 
             }
         </nav >
@@ -136,18 +141,20 @@ return (
                     </div>
                     <div  className='flex flex-wrap h-fit '>
                         {options.map((option, idx) => (
-                            <Link onClick={() => setIsOpend(false)}  className={`${curentPath == option.href ? '!text-orange-900' : 'text-stone-500'} hover:!text-stone-300 font-black font-mono duration-500 py-5 px-3 w-full border-b border-stone-600 cursor-pointer`} key={idx} href={option.href}>{option.name}</Link>
+                            option.name == 'Portfolio' && user == null  ?
+                                <Link onClick={() => setIsOpend(false)}  className={`${curentPath == option.href ? '!text-orange-900' : 'text-stone-500'} hidden hover:!text-stone-300 font-black font-mono duration-500 py-5 px-3 w-full border-b border-stone-600 cursor-pointer`} key={idx} href={option.href}>{option.name}</Link>
+                            :   <Link onClick={() => setIsOpend(false)}  className={`${curentPath == option.href ? '!text-orange-900' : 'text-stone-500'} hover:!text-stone-300 font-black font-mono duration-500 py-5 px-3 w-full border-b border-stone-600 cursor-pointer`} key={idx} href={option.href}>{option.name}</Link>
                         ))}
                     </div>
                     {
-                        user?.name === '' ? 
+                        user == null ? 
                         <div className='flex-center mt-10 !justify-around '>
                             <Link onClick={() => setIsOpend(false)} href={"/global/user/logIn"} className=' btn w-[40%]'>log In</Link>
                             <Link onClick={() => setIsOpend(false)} href={"/global/user/signIn"} className='btn w-[40%]  hover:!via-black  hover:from-amber-300/30 hover:to-amber-300/30  from-amber-200/30 via-black to-amber-200/30 '>Sign In</Link>
                         </div> 
                         :
                         <div className='flex-center mt-10 !justify-around '>
-                            <Link onClick={() => setIsOpend(false)} href={"/global/user/logIn"} className=' btn w-[40%]'>Sign out</Link>
+                            <button onClick= {() => logOut() }   className=' btn w-[40%]'>Sign out</button>
             </div>
                     }
                 </div>

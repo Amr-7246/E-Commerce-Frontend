@@ -8,6 +8,7 @@ import { UserInfoContextProvider } from "./context/users/userInfoContext";
 import { GlobalContextProvider } from "./context/Global/GlobalContext";
 import { Toaster } from "react-hot-toast";
 import { CartContextProvider } from "./context/cart/CartContext";
+import CustomeNotification from "./components/Notification";
 // import { OrderProvider } from "./context/order/order"; // Ensure this path is correct
 
 const geistSans = Geist({
@@ -33,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} relative overflow-x-hidden antialiased`}
       >
         {/* <ReduxProvider > */}
         <OrderProvider>
@@ -43,6 +44,7 @@ export default function RootLayout({
                 <ReactQueryProvider>
                   <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
                   {children}
+                  <CustomeNotification/>
                 </ReactQueryProvider>
               </UserInfoContextProvider>
             </CartContextProvider>

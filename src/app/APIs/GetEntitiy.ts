@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useAxiosInterceptor } from "../global/user/api/refreshTokens"
+import { useAxiosInterceptor } from "../global/user/Auth/refreshTokens"
 
 const FetchEntities = async (MyAxios: any, Route: string) => {
     const res = await MyAxios.get(`${Route}`)

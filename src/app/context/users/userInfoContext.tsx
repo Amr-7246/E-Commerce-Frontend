@@ -1,16 +1,19 @@
 "use client"
-import { ReactNode, useContext, useState, createContext } from "react";
+import { ReactNode, useContext, useState, createContext, useEffect } from "react";
 
 // ~ ######### User Info Context tybe
     interface IUser {
-        id: string;
-        name: string;
-        email: string;
+      password: string;
+      name: string;
+      email: string;
+      _id: string;
     }
 
     interface AuthContextType {
         UserInfo: IUser | null;
         setUserInfo: (user: IUser | null) => void;
+        login: (userData: IUser, token: string) => void;
+        ClientLogout: () => void;
     }
 // ~ ######### User Info Context tybe
 // ~ ######### User Info Context itself
@@ -18,9 +21,25 @@ import { ReactNode, useContext, useState, createContext } from "react";
     export const UserInfoContextProvider = ({ children }: { children: ReactNode }) => {
 
         const [UserInfo, setUserInfo] = useState<IUser | null >(null)
+        useEffect(() => {
+          const storedUser = localStorage.getItem("user");
+          if (storedUser) setUserInfo(JSON.parse(storedUser));
+        }, []);
+      
+        const login = (userData: IUser, token: string) => {
+          localStorage.setItem("user", JSON.stringify(userData));
+          localStorage.setItem("accessToken", token);
+          setUserInfo(userData);
+        };
+      
+          const ClientLogout = () => {
+          localStorage.removeItem("user");
+          localStorage.removeItem("accessToken");
+          setUserInfo(null);
+        };
 
         return (
-            <UserInfoContext.Provider value={{UserInfo, setUserInfo }} >
+            <UserInfoContext.Provider value={{UserInfo, setUserInfo , login , ClientLogout }} >
                 {children}
             </UserInfoContext.Provider>
         )  

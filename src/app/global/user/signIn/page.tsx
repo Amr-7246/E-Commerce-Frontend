@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSignUp } from "../api/signUp";
+import { useSignUp } from "../Auth/signUp";
 import toast from "react-hot-toast";
 
 export interface Iuse {
