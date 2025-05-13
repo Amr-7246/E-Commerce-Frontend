@@ -180,7 +180,7 @@
     @apply font-mono font-bold bg-background text-primary duration-500 ;
   }
   .page{
-    @apply flex items-center pt-3 overflow-hidden flex-col gap-5  md:w-[90%] lg:w-[90%] max-w-[1500px] w-[90%]  ;
+    @apply flex items-center pt-3 mt-3 overflow-hidden flex-col gap-5  md:w-[90%] lg:w-[90%] max-w-[1500px] w-[90%]  ;
   }
   .admin-page{
     @apply md:flex-1 md:h-[90vh] min-h-screen w-full overflow-y-auto md:py-10 py-20 flex flex-col gap-3 items-center bg-gradient-to-r from-black via-amber-200/20 to-black  ;
