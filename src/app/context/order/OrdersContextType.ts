@@ -20,7 +20,7 @@ export type IOrder = {
 
 export type IOrdersContext = {
     currentOrder: IOrder | null;
-    createOrder: (product: IProduct , customerD : any ) => void;
+    createOrder: (product: IProduct[] | IProduct  , customerD : any ) => void;
     clearOrder: () => void;
     setCurrentOrder?: React.Dispatch<React.SetStateAction<IOrder | null>>;
 };

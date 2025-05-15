@@ -4,6 +4,7 @@ import Loading from '@/app/components/Loading'
 import { useSignOut } from '@/app/global/user/Auth/signOut'
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import { UseDeleteEntity } from '@/app/APIs/DeleteEntitiy'
+import Image from 'next/image'
 
 export default function Page() {
     const {data , isLoading , isError } = UseGetEntities('user')
@@ -29,7 +30,7 @@ return (
                                         {/* start users all deets */}
                                             <div className='h-full text-stone-400 flex-center ' >
                                                 <span className='w-[120px] h-full border-stone-700 rounded-lg overflow-hidden  '>
-                                                    <img src={user.images?.[1]?.secure_url || undefined } alt={user.name} className="w-full h-40 object-cover rounded-md" />
+                                                    <Image src={user.images?.[1]?.secure_url || undefined } alt={user.name} width={160} height={160} className="w-full h-40 object-cover rounded-md" style={{objectFit:'cover', width:'100%', height:'10rem'}} />
                                                 </span>
                                             </div>
                                             <div className='h-full flex flex-col justify-end  text-stone-400 '>

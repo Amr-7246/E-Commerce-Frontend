@@ -4,6 +4,7 @@ import { useOrder } from '@/app/context/order/OrdersContext'
 import { IOrder } from '@/app/context/order/OrdersContextType'
 import React from 'react'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
 
 const OrderCard = () => {
 // ~ ######## Hooks
@@ -38,7 +39,7 @@ return (
     < div className=" p-3 flex flex-col mb-10 gap-4 w-[90%] md:w-[90%] mx-auto rounded-lg border border-amber-500/20 bg-stone-800/50 ">
         <div className="flex flex-col md:flex-row gap-6 items-center">
         {product?.images?.map((imag : any , index : any) => (
-            <img key={index} src={imag.secure_url || '' }  alt="Product" className={`  ${imag.secure_url == '' ? 'hidden' : 'block' } w-[150px] h-[150px] object-cover rounded-lg `} />
+            <Image key={index} src={imag.secure_url || '' }  alt="Product" width={150} height={150} className={`  ${imag.secure_url == '' ? 'hidden' : 'block' } w-[150px] h-[150px] object-cover rounded-lg `} style={{objectFit:'cover', width:'150px', height:'150px'}} />
         ))}
             <div className="flex flex-col text-white gap-1">
                 <h2 className="text-xl font-bold">{product?.name || 'No name 🫠'}</h2>

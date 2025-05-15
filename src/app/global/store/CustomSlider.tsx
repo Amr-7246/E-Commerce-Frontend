@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import { useGlobalContext } from '@/app/context/Global/GlobalContext'
 import { ICart, useCartContext } from '@/app/context/cart/CartContext'
+import Image from 'next/image'
 
 const CustomSlider = ({ title , category }: { title: string , category : string }) => {
 // ~ ########## Data & Hooks
@@ -35,7 +36,7 @@ const CustomSlider = ({ title , category }: { title: string , category : string 
     return (
     <div className=" w-full flex-center flex-col gap-3 ">
         {/* Slider Header */}
-            <div className='w-[85%] md:w-[85%] md:text-[19px] text-[17px]  flex-center gap-2'>
+            <div className='w-full md:w-[90%] max-w-[550px] md:text-[19px] text-[17px]  flex-center gap-2'>
                 <div className=' hidden md:flex md:flex-1 bg-black/50 border-amber-200/20 flex-center rounded-xl p-5 border-[1px]'>
                     <span  className="text-[18px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50" >{title}</span>
                 </div>
@@ -52,9 +53,11 @@ const CustomSlider = ({ title , category }: { title: string , category : string 
                             {products?.map((product : any , idx : any ) => (
                                 <div key={idx} className="snap-center flex-shrink-0 w-[280px] bg-black/50 rounded-2xl overflow-hidden shadow-lg p-4 space-y-3 hover:shadow-amber-200/20 transition-all duration-300" >
                                     {/* Product Deets */}
-                                        <img 
+                                        <Image 
                                             src={ product.images?.[1]?.secure_url || product.images?.[0]?.secure_url }
                                             alt={product.name} 
+                                            width={280}
+                                            height={192}
                                             className="w-full h-48 object-cover rounded-lg border border-orange-900" />
                                         <h2 className="text-xl font-semibold text-amber-200"> {product.name} </h2>
                                         <p className="text-orange-900 text-sm"> {product.description} </p>

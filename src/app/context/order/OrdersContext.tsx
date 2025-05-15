@@ -43,36 +43,69 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
         });
     // ~ ################## Real Data
     // ~ ################## create Order Function
-      const createOrder = (product: IProduct , customerD : any ) => {
-      
-        const newItem: IProduct  = {
-          _id: product._id,
-          name: product.name,
-          description: product.description,
-          images: product.images?.map((img: any) => ({
-            secure_url: img.secure_url,
-            publicId: img.publicId
-          })) ?? [],
-          variants: product.variants?.map((variant: any) => ({
-            options: variant.options?.map((opt: any) => ({
-              name: opt.name,
-              value: opt.value
-            })) ?? [],
-            images: variant.images?.map((img: any) => ({
+    const createOrder = (products: IProduct[] | IProduct , customerD : any ) => {
+        let newItem: IProduct[] = [];
+        if(Array.isArray(products)) {
+          products.forEach((product: any) => {
+            const item: IProduct = {
+              _id: product._id,
+              name: product.name,
+              description: product.description,
+              images: product.images?.map((img: any) => ({
+                secure_url: img.secure_url,
+                publicId: img.publicId
+              })) ?? [],
+              variants: product.variants?.map((variant: any) => ({
+                options: variant.options?.map((opt: any) => ({
+                  name: opt.name,
+                  value: opt.value
+                })) ?? [],
+                images: variant.images?.map((img: any) => ({
+                  secure_url: img.secure_url,
+                  publicId: img.publicId
+                })) ?? [],
+                price: variant.price,
+                inventory: variant.inventory
+              })) ?? [],
+              price: product.price,
+              discount: product.discount,
+              category: product.category,
+              shortDesc: product.shortDesc,
+              recommended: product.recommended ?? false,
+              inventory: product.inventory ?? 0
+            };
+            newItem.push(item);
+          }
+        )}else{
+          let item: IProduct = {
+            _id: products._id,
+            name: products.name,
+            description: products.description,
+            images: products.images?.map((img: any) => ({
               secure_url: img.secure_url,
               publicId: img.publicId
             })) ?? [],
-            price: variant.price,
-            inventory: variant.inventory
-          })) ?? [],
-          price: product.price,
-          discount: product.discount,
-          category: product.category,
-          shortDesc: product.shortDesc,
-          recommended: product.recommended ?? false,
-          inventory: product.inventory ?? 0
-        };
-        
+            variants: products.variants?.map((variant: any) => ({
+              options: variant.options?.map((opt: any) => ({
+                name: opt.name,
+                value: opt.value
+              })) ?? [],
+              images: variant.images?.map((img: any) => ({
+                secure_url: img.secure_url,
+                publicId: img.publicId
+              })) ?? [],
+              price: variant.price,
+              inventory: variant.inventory
+            })) ?? [],
+            price: products.price,
+            discount: products.discount,
+            category: products.category,
+            shortDesc: products.shortDesc,
+            recommended: products.recommended ?? false,
+            inventory: products.inventory ?? 0
+          };
+          newItem.push(item);
+        }
         setCurrentOrder((prev) => ({
           ...prev!,
           customer: {
@@ -83,7 +116,7 @@ import { IOrder, IOrdersContext } from "./OrdersContextType";
           },
           paymentStatus : 'pending' ,
           seller: "",
-          items: [newItem],
+          items: newItem,
           totalAmount: (customerD.totalAmount || 0) ,
           updatedAt: new Date(),
         }));

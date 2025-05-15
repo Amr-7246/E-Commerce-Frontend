@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 const VarintesCard = ({product} : any) => {
 return (
@@ -29,11 +30,14 @@ return (
                           {/* 🖼️ Images */}
                         <div className="flex gap-2 flex-wrap">
                             {variant.images?.map((img: any, index: number) => (
-                                <img
+                                <Image
                                     key={index}
                                     src={img.secure_url}
                                     alt="Variant Img"
+                                    width={56}
+                                    height={56}
                                     className="w-14 h-14 object-cover rounded-md border border-gray-500"
+                                    style={{objectFit:'cover', width:'3.5rem', height:'3.5rem'}}
                                 />
                             ))}
                         </div>

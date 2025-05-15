@@ -2,6 +2,7 @@
 
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
 import React from 'react'
+import Image from 'next/image'
 
 export default function Page() {
     const { data : currentOrder } = UseGetEntities('orders')
@@ -29,11 +30,14 @@ export default function Page() {
                         <p className="text-sm text-gray-500">{item.description}</p>
                         <div className="flex gap-2 mt-2">
                             {item.images.map((img : any  , imgIdx : any ) => (
-                                <img
+                                <Image
                                     key={imgIdx}
                                     src={img.secure_url}
                                     alt="item image"
+                                    width={64}
+                                    height={64}
                                     className="w-16 h-16 object-cover rounded-md border"
+                                    style={{objectFit:'cover', width:'4rem', height:'4rem'}}
                                 />
                             ))}
                         </div>

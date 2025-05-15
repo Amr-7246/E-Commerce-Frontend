@@ -2,6 +2,7 @@
 import React from 'react'
 import { useOrder } from '@/app/context/order/OrdersContext'
 import OrderCard from './components/OrderCard'
+import Image from 'next/image'
 
 export default function Page() {
 
@@ -19,7 +20,7 @@ return (
             <div className="flex flex-col md:flex-row gap-8 p-6 rounded-xl ">
                 <div className="w-full md:w-1/2 rounded-xl overflow-hidden">
                     {product?.images?.map((imag , index) => (
-                        <img key={index} src={imag.secure_url || '' } alt="Product Image" className={` ${imag.secure_url == '' ? 'hidden' : 'block' } w-full object-cover rounded-xl`} />
+                        <Image key={index} src={imag.secure_url || '' } alt="Product Image" width={400} height={400} className={` ${imag.secure_url == '' ? 'hidden' : 'block' } w-full object-cover rounded-xl`} style={{objectFit:'cover', width:'100%', height:'auto'}} />
                     ))}
                 </div>
                 <div className="flex text-amber-200/50 flex-col gap-3 w-full md:w-1/2">
@@ -85,4 +86,4 @@ return (
     </>
 )
 // ~ ######## Elementes
-} 
+}

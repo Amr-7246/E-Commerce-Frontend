@@ -9,17 +9,20 @@ import { GlobalContextProvider } from "./context/Global/GlobalContext";
 import { Toaster } from "react-hot-toast";
 import { CartContextProvider } from "./context/cart/CartContext";
 import CustomeNotification from "./components/Notification";
+import { ApolloProvider } from "@apollo/client";
+// import { client } from "./GlobalSetup/GraphQl/apollo-client";
 // import { OrderProvider } from "./context/order/order"; // Ensure this path is correct
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+// ${geistSans.variable} ${geistMono.variable}
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,22 +37,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} relative overflow-x-hidden antialiased`}
+        className={` relative overflow-x-hidden antialiased`}
       >
         {/* <ReduxProvider > */}
-        <OrderProvider>
-          <GlobalContextProvider>
-            <CartContextProvider>
-              <UserInfoContextProvider>
-                <ReactQueryProvider>
-                  <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-                  {children}
-                  <CustomeNotification/>
-                </ReactQueryProvider>
-              </UserInfoContextProvider>
-            </CartContextProvider>
-          </GlobalContextProvider>
-        </OrderProvider>
+        {/* <ApolloProvider client={client}> */}
+          <OrderProvider>
+            <GlobalContextProvider>
+              <CartContextProvider>
+                <UserInfoContextProvider>
+                  <ReactQueryProvider>
+                    <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+                    {children}
+                    <CustomeNotification/>
+                  </ReactQueryProvider>
+                </UserInfoContextProvider>
+              </CartContextProvider>
+            </GlobalContextProvider>
+          </OrderProvider>
+        {/* </ApolloProvider > */}
         {/* </ReduxProvider> */}
       </body>
     </html>
