@@ -1,5 +1,5 @@
 "use client"
-import { IProduct } from "@/app/types/productsType";
+import { IProduct } from "@/types/productsType";
 import { ReactNode, useContext, useState, createContext } from "react";
 
 // ~ ######### User Info Context tybe
