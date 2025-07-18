@@ -1,14 +1,14 @@
 'use client'
 
-import { UseGetEntities } from "@/app/APIs/GetEntitiy";
-import { UseDeleteEntity } from "@/app/APIs/DeleteEntitiy";
-import { UsePatchEntity } from "@/app/APIs/PatchEntitiy";
+import { UseGetEntities } from "@/APIs/GetEntitiy";
+import { UseDeleteEntity } from "@/APIs/DeleteEntitiy";
+import { UsePatchEntity } from "@/APIs/PatchEntitiy";
 import { useState } from "react";
-import { FiEdit, FiTrash2, FiSave } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiSave, FiImage, FiCheckCircle, FiXCircle } from "react-icons/fi";
 import Loading from "@/app/components/Loading";
+import content from '@/AppContent.json'
 
 export default function Page() {
-// ~ ################### Hooks
     const { data , isLoading , isError } = UseGetEntities("categories");
     const Categories = data?.data.docs
     const { mutate: deleteCategory } = UseDeleteEntity();
@@ -20,10 +20,6 @@ export default function Page() {
         description: "",
         isActive: true,
     });
-    // console.log( 'Here is my All cate' + JSON.stringify(data) )
-    // console.log( 'No Here is my real cate' + JSON.stringify(Categories) )
-// ~ ################### Hooks
-// ~ ################### logics
     const handleEdit = (category: any) => {
         setEditId(category._id);
         setEditedCategory({
@@ -33,7 +29,6 @@ export default function Page() {
             isActive: category.isActive,
         });
     };
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type, checked } = e.target as HTMLInputElement;
         setEditedCategory((prev) => ({
@@ -41,88 +36,102 @@ export default function Page() {
             [name]: type === "checkbox" ? checked : value,
         }));
     };
-
     const handleSave = (id: string) => {
         patchCategory({ data: editedCategory, id, Route: "categories" });
         setEditId(null);
     };
-// ~ ################### logics
+    const admin = content.admin
     return (
         <div className="admin-page ">
-            {isLoading ? (<Loading/>) : isError ? (<div className="text-red-500 text-center">Sorry bro, there is something wrong  </div>) : 
-            <div className=" md:w-[70%] max-w-[600px] w-[90%] flex-col flex gap-3 ">
-                {Categories.map((cat: any) => (
-                    <div
-                        key={cat._id}
-                        className="p-4 rounded-lg bg-black/50 shadow flex flex-col gap-3 border border-amber-200/20 text-amber-200/50 "
-                    >
-                        {editId === cat._id ? (
-                            <>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={editedCategory.name}
-                                    onChange={handleChange}
-                                    placeholder="Category Name"
-                                    className="w-full px-4 py-2 rounded-xl border border-amber-300/20 bg-orange-900/20"
-                                />
-                                <input
-                                    type="text"
-                                    name="slug"
-                                    value={editedCategory.slug}
-                                    onChange={handleChange}
-                                    placeholder="Slug"
-                                    className="w-full px-4 py-2 rounded-xl border border-amber-300/20 bg-orange-900/20"
-                                />
-                                <textarea
-                                    name="description"
-                                    value={editedCategory.description}
-                                    onChange={handleChange}
-                                    placeholder="Description"
-                                    className="w-full px-4 py-2 rounded-xl border border-amber-300/20 bg-orange-900/20"
-                                />
-                                <label className="flex items-center gap-2">
+            {isLoading ? (<Loading/>) : isError ? (
+                <div className="admin-status-error text-center">{admin.getAllCategories?.error || 'حدث خطأ أثناء تحميل الفئات'}</div>
+            ) : ( <div className="w-[90%]  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                    {Categories.map((cat: any) => (
+                        <div key={cat._id} className="flex flex-col gap-3 !text-[var(--text-primary)] min-h-[260px] shadow-md hover:shadow-lg transition-shadow duration-300 border rounded-lg p-4 border-stone-800 bg-black/50" >
+                            {editId === cat._id ? (
+                                <>
                                     <input
-                                        type="checkbox"
-                                        name="isActive"
-                                        checked={editedCategory.isActive}
+                                        type="text"
+                                        name="name"
+                                        value={editedCategory.name}
                                         onChange={handleChange}
-                                        className="accent-orange-900"
+                                        placeholder={admin.getAllCategories?.name || 'اسم الفئة'}
+                                        className="input"
                                     />
-                                    <span>Active</span>
-                                </label>
-                                <button
-                                    onClick={() => handleSave(cat._id)}
-                                    className="w-full py-3 cursor-pointer border border-amber-400/20 bg-black text-amber-400/50 rounded-lg font-semibold hover:bg-transparent transition-all duration-200 flex items-center justify-center gap-2"
-                                >
-                                    <FiSave /> Save
-                                </button>
-                            </>
-                        ) : (
-                            <div className="font-light text-amber-200/50 ">
-                                <p><span className="font-bold text-orange-900 text-[15px] ">Name:</span> {cat.name}</p>
-                                <p><span className="font-bold text-orange-900 text-[15px] ">Slug:</span> {cat.slug}</p>
-                                <p><span className="font-bold text-orange-900 text-[15px] ">Description:</span> {cat.description}</p>
-                                <p><span className="font-bold text-orange-900 text-[15px] ">Status:</span> {cat.isActive ? " Active" : " Inactive"}</p>
-                                {cat.image && (
-                                    <div className='w-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden'>
-                                        <img src={cat.image} alt="Uploaded Preview" className="object-cover w-full h-full" />
+                                    <input
+                                        type="text"
+                                        name="slug"
+                                        value={editedCategory.slug}
+                                        onChange={handleChange}
+                                        placeholder={admin.getAllCategories?.slug || 'المُعرف'}
+                                        className="input"
+                                    />
+                                    <textarea
+                                        name="description"
+                                        value={editedCategory.description}
+                                        onChange={handleChange}
+                                        placeholder={admin.getAllCategories?.description || 'الوصف'}
+                                        className="input"
+                                    />
+                                    <label className="flex items-center gap-2">
+                                        <input
+                                            type="checkbox"
+                                            name="isActive"
+                                            checked={editedCategory.isActive}
+                                            onChange={handleChange}
+                                            className="accent-[var(--admin-sidebar-active)]"
+                                        />
+                                        <span>{admin.getAllCategories?.active || 'نشط'}</span>
+                                    </label>
+                                    <button
+                                        onClick={() => handleSave(cat._id)}
+                                        className="btn flex items-center justify-center gap-2 w-full"
+                                    >
+                                        <FiSave /> {admin.getAllCategories?.save || 'حفظ'}
+                                    </button>
+                                </>
+                            ) : (
+                                <div className="font-bold flex flex-col gap-2">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="font-bold text-[var(--text-inverted)] text-[15px]">{admin.getAllCategories?.nameLabel || 'الاسم:'}</span>
+                                        <span className="text-lg">{cat.name}</span>
                                     </div>
-                                )}
-                                <div className="flex justify-end gap-4 mt-2">
-                                    <button onClick={() => handleEdit(cat)} className="text-sky-600 cursor-pointer hover:text-sky-400" >
-                                        <FiEdit size={18} />
-                                    </button>
-                                    <button onClick={() => deleteCategory({ id: cat._id, Route: "categories" })} className="text-red-600 cursor-pointer hover:text-red-800" >
-                                        <FiTrash2 size={18} />
-                                    </button>
-                                </div>
-                            </div >
-                        )}
-                    </div>
-                ))}
-            </div>
-            }
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-bold text-[var(--text-inverted)] text-[15px]">{admin.getAllCategories?.slugLabel || 'المُعرف:'}</span>
+                                        <span>{cat.slug}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-bold text-[var(--text-inverted)] text-[15px]">{admin.getAllCategories?.descriptionLabel || 'الوصف:'}</span>
+                                        <span>{cat.description}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-bold text-[var(--text-inverted)] text-[15px]">{admin.getAllCategories?.statusLabel || 'الحالة:'}</span>
+                                        {cat.isActive ? (
+                                            <span className="flex items-center gap-1 text-[var(--color-success)]"><FiCheckCircle />{admin.getAllCategories?.active || 'نشط'}</span>
+                                        ) : (
+                                            <span className="flex items-center gap-1 text-[var(--color-error)]"><FiXCircle />{admin.getAllCategories?.inactive || 'غير نشط'}</span>
+                                        )}
+                                    </div>
+                                    {cat.image && (
+                                        <div className='w-[100px] h-[100px] border border-[var(--admin-card-border)] rounded-lg overflow-hidden mx-auto flex items-center justify-center bg-[var(--admin-bg-light)]'>
+                                            <FiImage className="text-[var(--admin-sidebar-active)] text-2xl absolute" />
+                                            <img src={cat.image} alt="Uploaded Preview" className="object-cover w-full h-full relative z-10" />
+                                        </div>
+                                    )}
+                                    <div className="flex justify-start mt-5 mr-[70%] w-fit bg-black/50 rounded-md p-2   ">
+                                        <button onClick={() => handleEdit(cat)} className="text-[var(--color-info)] cursor-pointer hover:text-sky-400 px-4 border-l border-stone-500 transition-colors" >
+                                            <FiEdit size={18} />
+                                        </button>
+                                        <button onClick={() => deleteCategory({ id: cat._id, Route: "categories" })} className="text-[var(--color-error)] px-4 hover:text-red-800 transition-colors cursor-pointer " >
+                                            <FiTrash2 size={18} />
+                                        </button>
+                                    </div>
+                                </div >
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

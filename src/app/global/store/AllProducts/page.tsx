@@ -1,6 +1,6 @@
 "use client"
 import Loading from '@/app/components/Loading'
-import { useOrder } from '@/app/context/order/OrdersContext'
+import { useOrder } from '@/context/order/OrdersContext'
 import { motion } from 'framer-motion'
 import { redirect } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
@@ -8,7 +8,7 @@ import { IoCloseOutline } from 'react-icons/io5'
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { UseGetEntities } from '@/app/APIs/GetEntitiy'
-import { useGlobalContext } from '@/app/context/Global/GlobalContext'
+import { useGlobalContext } from '@/context/Global/GlobalContext'
 import Link from 'next/link'
 
 export default function Page() {
@@ -93,20 +93,20 @@ return (
                         <button onClick={() => setIsOpend(true)} className='btn w-[80%] md:w-[100px] lg:hidden'>Filter</button>
                         <div className='w-[80%] md:w-auto max-w-[900px] min-w-[300px] grid mx-auto grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 items-start justify-center p-4'>
                             {products?.map((product : any , index : any ) => (
-                                <div key={index} className="bg-stone-800 h-[450px] align-between justify-between flex flex-col gap-3 col-span-1 w-full rounded-2xl overflow-hidden shadow-lg p-4 space-y-3 hover:shadow-orange-300/20 transition-all duration-300" >
+                                <div key={index} className="bg-[var(--main)] h-[450px] align-between justify-between flex flex-col gap-3 col-span-1 w-full rounded-2xl overflow-hidden shadow-lg p-4 space-y-3 hover:shadow-[var(--btn-I)]/20 transition-all duration-300" >
                                         <div className=' w-full flex-col gap-3 flex'>
-                                            <img src={product.images?.[1]?.secure_url || product.images?.[0]?.secure_url  } alt={product.name} className="w-full h-48 object-cover rounded-lg border border-stone-700" />
-                                            <h2 className="text-xl font-semibold text-white">{product.name}</h2>
-                                            <p className="text-gray-400 text-sm">{product.description}</p>
+                                            <img src={product.images?.[1]?.secure_url || product.images?.[0]?.secure_url  } alt={product.name} className="w-full h-48 object-cover rounded-lg border border-[var(--border)]" />
+                                            <h2 className="text-xl font-semibold text-[var(--text-secondary)]">{product.name}</h2>
+                                            <p className="text-[var(--text-primary)] text-sm">{product.description}</p>
                                             <div className="flex items-center gap-2">
-                                            <span className="text-green-400 font-bold text-base"> ${product.price.toFixed(2)} </span>
+                                            <span className="text-[var(--color-price)] font-bold text-base"> ${product.price.toFixed(2)} </span>
                                             {product.discount > 0 && (
-                                                <span className="text-red-400 text-sm line-through">
+                                                <span className="text-[var(--color-discount)] text-sm line-through">
                                                     ${(product.price + product.discount).toFixed(2)}
                                                 </span>
                                             )}
                                             </div>
-                                            <p className="text-xs text-amber-200 italic"> variants Number : {product.variants.length} </p>
+                                            <p className="text-xs text-[var(--text-secondary)] italic"> variants Number : {product.variants.length} </p>
                                         </div>
                                         <div className=' w-full flex-center'>
                                             <Link href='/global/order'  className='btn !w-full ' onClick={() =>{ clearOrder() ; createOrder(product ,  '' ) }} >Buy Now</Link>

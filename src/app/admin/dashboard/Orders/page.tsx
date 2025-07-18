@@ -1,6 +1,6 @@
 'use client'
 
-import { UseGetEntities } from '@/app/APIs/GetEntitiy'
+import { UseGetEntities } from '@/APIs/GetEntitiy'
 import React from 'react'
 import Image from 'next/image'
 

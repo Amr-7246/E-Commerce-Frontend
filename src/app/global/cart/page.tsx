@@ -1,11 +1,11 @@
 "use client"
 
-import { useCartContext } from '@/app/context/cart/CartContext'
+import { useCartContext } from '@/context/cart/CartContext'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useOrder } from '@/context/order/OrdersContext'
 import OrderCard from '../order/components/OrderCard'
-import { useOrder } from '@/app/context/order/OrdersContext'
 
 const page = () => {
 

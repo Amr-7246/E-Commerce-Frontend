@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "../page.tsx",
-    "src/app/global/store/AllProducts"
+    "src/app/store/AllProducts"
   ],
   "exclude": [
     "node_modules"

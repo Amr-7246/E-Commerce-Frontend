@@ -2,14 +2,9 @@ import DashboardNav from "./components/DashboardNav";
 import GlobalNavBar from "@/app/components/GlobalNavBar";
 export default function Layout({children}: {children: React.ReactNode}) {
     return (
-        <section className="flex flex-col min-h-screen gap-0 h-fit relative bg-stone-900 ">
-            <div className=' flex flex-center gap-3 pb-3 text-stone-300 h-fit sticky w-full  border-b border-stone-600 '>
-                <GlobalNavBar/>
-            </div>
-            <div className='flex-row min:h-screen gap-0 flex'>
-                <DashboardNav />
-                {children}
-            </div>
+        <section className="admin-main-page">
+          <DashboardNav />
+          {children}
         </section>
     );
 }

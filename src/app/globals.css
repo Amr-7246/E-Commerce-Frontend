@@ -1,195 +1,116 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Orbitron:wght@400..900&family=Rowdies:wght@300;400;700&family=Shafarik&family=Yuji+Mai&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lateef:wght@200;300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  /* ~ customize  */
-    --text-color: var(--text);
-    --background-color: var(--background-custom);
-    --first-color: var(--first);
-    --second-color: var(--second);
-    --third-color: var(--third);
-    --fourth-color: var(--fourth);
-  /* ~ customize  */
+@layer base {
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-}
-:root {
-  /* ~ customize  */
-    --text: oklch(0.6 0.01 270);                /* stone-400 */
-    --background-custom: oklch(0.27 0.015 270); /* stone-800 */
-    --first: oklch(0.58 0.24 282);              /* indigo-500 */
-    --second: oklch(0.75 0.16 240);             /* sky-500 */
-    --third: oklch(0.75 0.21 55);               /* orange-500 */
-    --fourth: oklch(0.72 0.24 20);              /* rose-500 */
-  /* ~ customize  */
-
-  --radius: 0.75rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.606 0.25 292.717);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.606 0.25 292.717);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.606 0.25 292.717);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.606 0.25 292.717);
-}
-
-.dark {
-  /* ~ customize  */
-    --text: oklch(0.9 0.01 270);                /* reverse of stone-400 = brighter */
-    --background-custom: oklch(0.98 0 0);       /* reverse of stone-800 = white */
-    --first: oklch(0.58 0.24 282);              /* same indigo-500 */
-    --second: oklch(0.75 0.16 240);             /* same sky-500 */
-    --third: oklch(0.75 0.21 55);               /* same orange-500 */
-    --fourth: oklch(0.72 0.24 20);              /* same rose-500 */
-  /* ~ customize  */
-  
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.541 0.281 293.009);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.541 0.281 293.009);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.541 0.281 293.009);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.541 0.281 293.009);
-}
-/* ~ Start SVG Manpulation */
-  .clip-mask-1 {
-    -webkit-mask-image: url('/SVG/blob-mask-1.svg');
-    mask-image: url('/SVG/blob-mask-1.svg');
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    mask-position: center;
+  :root {
+    /* ~ --- Min --- */
+      --main: #ffffff;
+      --surface:#3c97ff;
+      --text-primary: #111111;
+      --text-secondary: #3c97ff;
+      --text-inverted: #ffffff;
+      --inactive-text: #272727;
+      --btn-I: #3c97ff;
+      --btn-II: rgb(0, 0, 0);
+      --border: #3c97ff;
+      --shadow-color: rgb(0, 0, 0);
+      --input-bg: #f6fff8;
+      --gradient-from: #3ca7ff;
+      --gradient-via: rgb(27, 27, 27);
+      --gradient-to: #3ca7ff;
+      --black: #000000;
+      --white: #ffffff;
+      --color-price: #3cff83;
+      --color-discount: #ef4444;
+      --color-success-text: #065f46;
+      --color-warning-text: #b45309;
+      --color-error-text: #7f1d1d;
+    /* ~ --- Min --- */
+    /* ~ --- Semantic Colors --- */
+      --color-success: #3cff83;
+      --color-warning: #facc15;
+      --color-error: #ef4444;
+      --color-info: #3ca7ff;
+    /* ~ --- Semantic Colors --- */
+    /* ~ --- Admin Dashboard Colors --- */
+      --admin-sidebar-bg: #3c97ff;
+      --admin-sidebar-active: rgb(0, 61, 53);
+      --admin-sidebar-text: #e0e0e0;
+      --admin-card-bg: rgba(0, 0, 0, 0.822);
+      --admin-card-border: #000e0c;
+      --admin-status-success: #3cff83;
+      --admin-status-warning: #1524fa;
+      --admin-status-error: #ef4444;
+      --admin-status-info: #3ca7ff;
+      --admin-highlight: #3c97ff;
+      --admin-bg-light: #f5f5f5;
+      --admin-bg-dark: #b6b6ff00;
+    /* ~ --- Admin Dashboard Colors --- */
   }
 
-  .clip-mask-2 {
-    -webkit-mask-image: url('/SVG/blob-mask-2.svg');
-    mask-image: url('/SVG/blob-mask-2.svg');
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    mask-position: center;
+  .dark {
+      /* ~ --- Min --- */
+      --main: #161616;
+      --surface:#3c97ff;
+      --text-primary: #ffffff;
+      --text-secondary: #3c97ff;
+      --text-inverted: #181717;
+      --inactive-text: #a3a3a3;
+      --btn-I: #3c97ff;
+      --btn-II: rgb(255, 255, 255);
+      --border: #3c97ff;
+      --shadow-color: rgba(0, 0, 0, 0.08);
+      --input-bg: #f6fff8;
+      --gradient-from: #3ca7ff;
+      --gradient-via: #ffffff;
+      --gradient-to: #3ca7ff;
+      --black: #000000;
+      --white: #ffffff;
+      --color-price: #3cff83;
+      --color-discount: #ef4444;
+      --color-success-text: #065f46;
+      --color-warning-text: #facc15;
+      --color-error-text: #7f1d1d;
+    /* ~ --- Min --- */
+    /* ~ --- Semantic Colors --- */
+      --color-success: #3cff83;
+      --color-warning: #facc15;
+      --color-error: #ef4444;
+      --color-info: #3cff83;
+    /* ~ --- Semantic Colors --- */
+
   }
 
-  .clip-mask-3 {
-    -webkit-mask-image: url('/SVG/blob-mask-3.svg');
-    mask-image: url('/SVG/blob-mask-3.svg');
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    mask-position: center;
-  }
+}
 
-/* ~ Start SVG Manpulation */
-
+.body{
+  font-family: "Lateef", serif;
+}
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
+
   body {
-    @apply font-mono font-bold bg-background text-primary duration-500 ;
+    @apply overflow-x-hidden bg-[var(--main)] text-[var(--text-primary)] duration-500 ;
   }
   .page{
-    @apply flex items-center pt-3 mt-3 overflow-hidden flex-col gap-5  md:w-[90%] lg:w-[90%] max-w-[1500px] w-[90%]  ;
+    @apply flex items-center pt-26 mx-auto overflow-hidden flex-col gap-5 md:w-[90%] lg:w-[90%] max-w-[1500px] w-[90%]  ;
+  }
+  .admin-main-page{
+    @apply flex items-start overflow-hidden flex-row w-[100%] h-[100vh] ;
   }
   .admin-page{
-    @apply md:flex-1 md:h-[90vh] min-h-screen w-full overflow-y-auto md:py-10 py-20 flex flex-col gap-3 items-center bg-gradient-to-r from-black via-amber-200/20 to-black  ;
+    @apply md:flex-1 md:h-[90vh] min-h-screen w-full overflow-y-auto md:py-10 py-20 flex flex-col gap-3 items-center  ;
   }
   .flex-center {
     @apply flex items-center justify-center;
   }
   .btn {
-    @apply hover:border-[1px] hover:border-amber-200 border-[1px] border-black hover:!text-orange-800 hover:from-black hover:via-amber-300/30 hover:to-black p-3 rounded-lg text-center text-sm font-bold transition-all duration-800 ease-in-out bg-gradient-to-r from-black via-amber-200/30 to-black text-stone-400 cursor-pointer ;
+    @apply rounded-md bg-[var(--btn-I)] text-[var(--text-primary)] hover:bg-transparent hover:border-[var(--btn-I)] border-[1px] border-transparent hover:!text-[var(--btn-I)]  p-3 text-center text-sm font-bold transition-all duration-800 ease-in-out cursor-pointer ;
   }
   .input {
     @apply w-full p-2 border-[1px] border-stone-600  text-stone-400 font-bold focus:outline-none focus:border-orange-950 duration-500 rounded-lg  ;
@@ -197,4 +118,43 @@
   .banner-image {
     @apply rounded-lg absolute ;
   }
+
+  /*~ Cards */
+    .product-card {
+      @apply relative bg-[var(--main)] rounded-xl overflow-hidden shadow-md transition-all duration-300 ease-in-out cursor-pointer border border-[var(--border)] flex flex-col;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px 0 rgba(60, 151, 255, 0.18);
+    }
+    .product-card-hover-mask {
+      @apply absolute inset-0 bg-black/10 pointer-events-none transition-opacity duration-300;
+      opacity: 0;
+    }
+    .product-card:hover .product-card-hover-mask {
+      opacity: 1;
+    }
+  /*~ Cards */
+  /*~ Admin section */
+  .admin-card {
+    @apply bg-[var(--admin-card-bg)] border border-[var(--admin-card-border)] rounded-xl w-[90%] shadow p-4;
+  }
+  .admin-sidebar {
+    @apply bg-[var(--admin-sidebar-bg)] text-[var(--admin-sidebar-text)] border-r border-[var(--admin-card-border)];
+  }
+  .admin-sidebar-link-active {
+    @apply !text-[var(--admin-sidebar-active)] ;
+  }
+  .admin-status-success {
+    @apply text-[var(--admin-status-success)];
+  }
+  .admin-status-warning {
+    @apply text-[var(--admin-status-warning)];
+  }
+  .admin-status-error {
+    @apply text-[var(--admin-status-error)];
+  }
+  .admin-status-info {
+    @apply text-[var(--admin-status-info)];
+  }
+  /*~ Admin section */
 }

@@ -1,7 +1,7 @@
 "use client"
-import { UseCreateEntitiy } from '@/app/APIs/CreateEntitiy'
-import { useOrder } from '@/app/context/order/OrdersContext'
-import { IOrder } from '@/app/context/order/OrdersContextType'
+import { UseCreateEntitiy } from '@/APIs/CreateEntitiy'
+import { useOrder } from '@/context/order/OrdersContext'
+import { IOrder } from '@/context/order/OrdersContextType'
 import React from 'react'
 import toast from 'react-hot-toast'
 import Image from 'next/image'

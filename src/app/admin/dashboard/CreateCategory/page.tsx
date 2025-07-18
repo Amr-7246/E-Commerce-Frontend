@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from "react";
-import { UseCreateEntitiy } from "@/app/APIs/CreateEntitiy";
-import { UploadAssets } from "@/app/utils/uploadOnCloudinary";
+import { UseCreateEntitiy } from "@/APIs/CreateEntitiy";
+import { UploadAssets } from "@/utils/uploadOnCloudinary";
 import { FiPlus } from "react-icons/fi";
+import content from '@/AppContent.json'
 import ErrorHandler from "@/app/components/ErrorHandler";
 
 export default function Page() {
 // ~ ################### Hooks
 const [UserError, setUserError] = useState({
-    content: '' , 
+    content: '' ,
     state: ''
 });
 const [CatigroyData, setCatigroyData] = useState({
@@ -72,18 +73,19 @@ const [CatigroyData, setCatigroyData] = useState({
         }
     };
 // ~ ################### Logics
+const admin = content.admin
 return (
     <div className="admin-page  ">
-        <form onSubmit={(e) => { e.preventDefault(); CreateCategory(); }} className="max-w-md h-fit text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
-            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50">
-                Create Category
+        <form onSubmit={(e) => { e.preventDefault(); CreateCategory(); }} className=" h-fit admin-card space-y-4">
+            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[var(--admin-highlight)] via-[var(--admin-sidebar-active)] to-[var(--admin-highlight)]">
+                {admin.createCategory?.title || 'إضافة فئة جديدة'}
             </h2>
             <input
                 type="text"
                 name="name"
                 value={CatigroyData.name}
                 onChange={handleChange}
-                placeholder="Category Name"
+                placeholder={admin.createCategory?.name || 'اسم الفئة'}
                 className="input"
             />
 
@@ -92,7 +94,7 @@ return (
                 name="slug"
                 value={CatigroyData.slug}
                 onChange={handleChange}
-                placeholder="Slug"
+                placeholder={admin.createCategory?.slug || 'المُعرف'}
                 className="input"
             />
 
@@ -100,12 +102,12 @@ return (
                 name="description"
                 value={CatigroyData.description}
                 onChange={handleChange}
-                placeholder="Description"
+                placeholder={admin.createCategory?.description || 'الوصف'}
                 className="input"
             />
 
-            <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
-                <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
+            <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-[var(--admin-highlight)] via-[var(--admin-sidebar-active)] to-[var(--admin-bg-dark)] cursor-pointer text-[var(--admin-sidebar-text)]/50 shadow-lg hover:scale-105 transition-transform">
+                <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-[var(--admin-sidebar-bg)] " /></span>
                 <input
                     type="file"
                     accept="image/*"
@@ -114,9 +116,9 @@ return (
                 />
             </label>
 
-            {uploading && <p className="text-sm text-amber-200 animate-pulse">Uploading image...</p>}
+            {uploading && <p className="text-sm text-[var(--admin-highlight)] animate-pulse">{admin.createCategory?.uploading || 'جاري رفع الصورة...'}</p>}
             {CatigroyData.image && (
-                <div className='w-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden'>
+                <div className='w-[100px] h-[100px] border-[var(--admin-card-border)] rounded-lg overflow-hidden'>
                     <img src={CatigroyData.image} alt="Uploaded Preview" className="object-cover w-full h-full" />
                 </div>
             )}
@@ -128,9 +130,9 @@ return (
                     name="isActive"
                     checked={CatigroyData.isActive}
                     onChange={handleChange}
-                    className="accent-orange-900 w-4 h-4"
+                    className="accent-[var(--admin-sidebar-active)] w-4 h-4"
                 />
-                <label htmlFor="isActive" className="text-stone-300">Active</label>
+                <label htmlFor="isActive" className="text-[var(--admin-sidebar-text)]">{admin.createCategory?.active || 'نشط'}</label>
             </div>
 
             <button
@@ -138,7 +140,7 @@ return (
                 disabled={uploading}
                 className="btn w-full transition"
             >
-                {uploading ? "Wait..." : "Create Category"}
+                {uploading ? (admin.createCategory?.wait || 'انتظر...') : (admin.createCategory?.createBtn || 'إضافة الفئة')}
             </button>
         </form>
         <ErrorHandler UserError={UserError} />

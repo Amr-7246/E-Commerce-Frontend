@@ -1,14 +1,15 @@
 'use client'
 
-import { IProduct } from '@/app/types/productsType'
+import { IProduct } from '@/types/productsType'
 import { useEffect, useState } from 'react'
 import { FiPlus } from "react-icons/fi";
-import { UseCreateEntitiy } from '@/app/APIs/CreateEntitiy'
-import { UsePatchEntity } from '@/app/APIs/PatchEntitiy'
-import { UploadAssets } from '@/app/utils/uploadOnCloudinary';
+import { UseCreateEntitiy } from '@/APIs/CreateEntitiy'
+import { UsePatchEntity } from '@/APIs/PatchEntitiy'
+import { UploadAssets } from '@/utils/uploadOnCloudinary';
 import SelectCategory from './SelectCategory';
 import SelectVarients, { VariantType } from './SelectVarients';
 import toast from 'react-hot-toast';
+import content from '@/AppContent.json'
 
 interface FormProps {
     existingProduct?: IProduct
@@ -17,17 +18,18 @@ interface FormProps {
 export default function CreateProduct({ existingProduct }: FormProps) {
 
 // ~ ############################# Hooks
+    const admin = content.admin
     const [IsVarintes, setIsVarintes] = useState(false)
     const isEditMode = !!existingProduct
     const { mutate: createMutate, isError : CreationError , isPending: isCreating } = UseCreateEntitiy()
     const { mutate: editMutate, isError : EditingError,isPending: isEditing } = UsePatchEntity()
     const [VarientImages, setVarientImages] = useState<any>({ secure_url: '' , publicId: '' })
-    
+
     const [Variants, setVariants] = useState<VariantType>({
         options: [{ name: '' , value: '' }],
         images : [{ secure_url: '' , publicId: '' }],
-        price: null , 
-        inventory: null 
+        price: null ,
+        inventory: null
     })
     const [ProductData, setProductData] = useState<IProduct>({
         name: '',
@@ -37,12 +39,12 @@ export default function CreateProduct({ existingProduct }: FormProps) {
         inventory: null ,
         images: [{ secure_url: '' , publicId: '' }],
         variants: [
-            {
-                options: [{ name:'' , value: '' }],
-                images: [ { secure_url: '', publicId: '' } ],
-                price: null ,
-                inventory: null 
-            }
+          {
+            options: [{ name:'' , value: '' }],
+            images: [ { secure_url: '', publicId: '' } ],
+            price: null ,
+            inventory: null
+          }
         ],
         discount: null,
         category: '',
@@ -74,7 +76,7 @@ export default function CreateProduct({ existingProduct }: FormProps) {
 
             for (const file of files ) {
                 try {
-                    const data = await UploadAssets(file) // ~ the most important line 
+                    const data = await UploadAssets(file) // ~ the most important line
 
                     if ( Who == 'Product'){
                         setProductData((prv) => ({
@@ -97,20 +99,20 @@ export default function CreateProduct({ existingProduct }: FormProps) {
         const handleSubmit = (e: React.FormEvent) => {
             e.preventDefault()
             if(CreationError || EditingError) {
-                toast.error("Sorry But there is something wrong You can try again later !")
+                toast.error(admin.createProduct.errorGeneral)
                 return
             }
             if (!ProductData.name.trim() || !ProductData.price || !ProductData.category || !ProductData.shortDesc) {
-                toast.error('Please Enter the requierd feilds !' )
+                toast.error(admin.createProduct.errorRequiredFields )
                 return
             }
 
             if (isEditMode && existingProduct?._id) {
                 editMutate({ data: ProductData , id: existingProduct._id , Route: 'products' })
-                toast.success('the Product had Edited Successfully !')
+                toast.success(admin.createProduct.successEdit)
             } else {
                 createMutate({ Data: ProductData, Route: 'products' })
-                toast.success('the Product had Created Successfully !')
+                toast.success(admin.createProduct.successCreate)
             }
             if (!isEditMode) {
             setProductData({
@@ -119,7 +121,7 @@ export default function CreateProduct({ existingProduct }: FormProps) {
                         options: [{ name:'' , value: '' }],
                         images: [ { secure_url: '', publicId: '' } ],
                         price: null ,
-                        inventory: null 
+                        inventory: null
                     }
                 ],
                 name: '',
@@ -138,48 +140,48 @@ export default function CreateProduct({ existingProduct }: FormProps) {
 // ~ ############################# Logic
 return (
     <div className={` ${isEditMode ? '!from-transparent !via-transparent !to-transparent md:!h-fit ' : '' } admin-page  `} >
-            <form onSubmit={handleSubmit} className=" w-[90%] flex flex-col lg:flex-col gap-3 h-fit text-white p-4 space-y-4 border border-stone-600 rounded-xl bg-black/50 shadow">
+            <form onSubmit={handleSubmit} className="!w-[95%] flex flex-col lg:flex-col gap-3 h-fit admin-card space-y-4">
                 <div className='lg:w-full hi-fit  flex-center  ' >
-                    <h2 className="text-2xl font-bold w-fit text-transparent bg-clip-text bg-gradient-to-r from-amber-200/50 via-orange-900 to-amber-200/50 ">
-                        {isEditMode ? 'Edit Product ' : 'Create Product '}
+                    <h2 className="text-2xl font-bold w-fit text-transparent bg-clip-text bg-gradient-to-r from-[var(--gradient-from)] via-[var(--white)] to-[var(--gradient-to)] ">
+                        {isEditMode ? <span>{admin.createProduct.editTitle}</span> : <span>{admin.createProduct.createTitle}</span>}
                     </h2>
                 </div>
                 <div className={` ${isEditMode ? 'lg:!flex-col' : ''}  lg:flex-row flex-col gap-5 flex`}>
                     <div className='flex flex-col flex-1 gap-5 ' >
-                        <input type="text" name="name" value={ProductData.name} onChange={handleChange} placeholder="Product Name" className="input" />
-                        <input type="number" name="price" value={ProductData.price??  ''} onChange={handleChange} placeholder="Price" className="input" />
-                        <input type="number" name="discount" value={ProductData.discount??  ''} onChange={handleChange} placeholder="Discount (%)" className="input" />
-                        <input type="number" name="inventory" value={ProductData.inventory??  ''} onChange={handleChange} placeholder="inventory " className="input" />
-                        <label  className={`flex items-center gap-2 p-2 border-[1px] border-amber-200/50 rounded cursor-pointer transition ${ ProductData.recommended ? 'bg-stone-800 border-orange-900' : 'bg-black/50' }`} >
+                        <input type="text" name="name" value={ProductData.name} onChange={handleChange} placeholder={admin.createProduct.placeholders.name} className="input" />
+                        <input type="number" name="price" value={ProductData.price??  ''} onChange={handleChange} placeholder={admin.createProduct.placeholders.price} className="input" />
+                        <input type="number" name="discount" value={ProductData.discount??  ''} onChange={handleChange} placeholder={admin.createProduct.placeholders.discount} className="input" />
+                        <input type="number" name="inventory" value={ProductData.inventory??  ''} onChange={handleChange} placeholder={admin.createProduct.placeholders.inventory} className="input" />
+                        <label  className={`flex items-center gap-2 p-2 border-[1px] border-[var(--white)]/20 rounded cursor-pointer transition ${ ProductData.recommended ? 'bg-[var(--admin-bg-dark)] border-[var(--admin-sidebar-active)]' : 'bg-[var(--admin-card-bg)]' }`} >
                             <input
                                 type="checkbox"
                                 checked={ProductData.recommended}
                                 onChange={() => setProductData((prev) => ({ ...prev, recommended: !prev.recommended }))}
-                                className="accent-orange-900"/>
-                            <span className="capitalize text-amber-200/50 text-sm">Recommended</span>
+                                className="accent-[var(--admin-sidebar-active)]"/>
+                            <span className="capitalize text-[var(--text-inverted)] text-sm">{admin.createProduct.recommendedLabel}</span>
                         </label>
                         {/* Cate  */}
                             <SelectCategory onCategorySelect={(id : string) => setProductData((prev) => ({ ...prev, category: id }))} />
                         {/* Cate  */}
                     </div>
                     <div className='flex flex-col flex-1 gap-5'>
-                        <textarea name="shortDesc" value={ProductData.shortDesc} onChange={handleChange} placeholder="Short Description" className="input" />
-                        <textarea name="description" value={ProductData.description} onChange={handleChange} placeholder="Full Description (optional)" className="input" />
+                        <textarea name="shortDesc" value={ProductData.shortDesc} onChange={handleChange} placeholder={admin.createProduct.placeholders.shortDesc} className="input" />
+                        <textarea name="description" value={ProductData.description} onChange={handleChange} placeholder={admin.createProduct.placeholders.description} className="input" />
                         {/* Products images */}
-                            <div className='bg-stone-800/50 p-3 flex flex-col gap-2 rounded-xl'>
-                                <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-amber-600 via-orange-950 to-stone-800  cursor-pointer text-white/50 shadow-lg  hover:scale-105 transition-transform">
-                                    <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-stone-900 " /></span>
-                                    <input 
-                                        type="file" 
-                                        accept="image/*" 
-                                        multiple 
-                                        onChange={(e) => handleImageUpload( e , 'Product')} 
-                                        className="hidden" 
+                            <div className='bg-[var(--admin-bg-dark)] p-3 flex flex-col gap-2 rounded-xl'>
+                                <label className="w-[70px] h-[70px] flex items-center justify-center rounded-full !bg-gradient-to-br from-[var(--gradient-from)] via-[var(--gradient-via)] to-[var(--gradient-to)]  cursor-pointer text-[var(--admin-sidebar-text)]/50 shadow-lg  hover:scale-105 transition-transform">
+                                    <span className="text-xl bg-transparent "><FiPlus className="text-2xl font-black text-[var(--admin-sidebar-bg)] " /></span>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        multiple
+                                        onChange={(e) => handleImageUpload( e , 'Product')}
+                                        className="hidden"
                                     />
                                 </label>
                                 <div className ={` ${ProductData.images.length > 0 ? '' : '' } p-3 flex rounded-xl overflow-auto gap-2 `} >
                                     { ProductData.images.map((image, index) => (
-                                        <div className={`' ${ image.secure_url ? 'block': "hidden"} min-w-[100px] w-[150px] min-h-[100px] h-[100px] border-stone-700 rounded-lg overflow-hidden  '`} key={index} >
+                                        <div className={`' ${ image.secure_url ? 'block': "hidden"} min-w-[100px] w-[150px] min-h-[100px] h-[100px] border-[var(--admin-card-border)] rounded-lg overflow-hidden  '`} key={index} >
                                             <img className='' src={image.secure_url || undefined } />
                                         </div>
                                     ))}
@@ -191,8 +193,8 @@ return (
                         {/* Varintes */}
                     </div>
                 </div>
-                <button type="submit" disabled={isCreating || isEditing} className="btn w-full border-amber-200/30 hover:!border-transparent transition">
-                    {isEditMode ? (isEditing ? 'Editing...' : 'Edit The Product') : (isCreating ? 'Creating...' : 'Create The Product')}
+                <button type="submit" disabled={isCreating || isEditing} className="btn w-full ">
+                    {isEditMode ? (isEditing ? admin.createProduct.button.editing : admin.createProduct.button.edit) : (isCreating ? admin.createProduct.button.creating : admin.createProduct.button.create)}
                 </button>
             </form>
     </div>

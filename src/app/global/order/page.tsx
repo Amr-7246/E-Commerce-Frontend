@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { useOrder } from '@/app/context/order/OrdersContext'
+import { useOrder } from '@/context/order/OrdersContext'
 import OrderCard from './components/OrderCard'
 import Image from 'next/image'
 

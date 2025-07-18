@@ -1,0 +1,158 @@
+{
+  "navBar": {
+    "options": [
+      { "name": "الرئيسية", "href": "/global/home", "fake_href": "/global/home" },
+      { "name": "السلة", "href": "/global/cart", "fake_href": "/global/cart" },
+      { "name": "المتجر", "href": "/global/store", "fake_href": "/global/store" },
+      { "name": "لوحة التحكم", "href": "/admin/dashboard/CreateProduct", "fake_href": "/admin/dashboard/" },
+      { "name": "حسابي", "href": "/global/user/portfolio", "fake_href": "/global/user/portfolio" }
+    ],
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "signout": "تسجيل الخروج"
+  },
+  "hero": {
+    "heroSection": {
+      "headline": "تسوق بسهولة وأمان!",
+      "subheadline": "اكتشف أفضل المنتجات والعروض الحصرية في متجرنا الإلكتروني."
+    },
+    "buttons": {
+      "explorOurMarket": "تصفح السوق",
+      "learnMore": "اعرف المزيد"
+    },
+    "animationAlt": "رسم توضيحي لمتجر إلكتروني عصري"
+  },
+  "Cards": {
+    "exploreMore": "استكشف المزيد من المنتجات ذات الصلة",
+    "exploreMoreBtn": " المزيد . . . ",
+    "noImage": "لا توجد صورة متاحة",
+    "loading": "جاري تحميل المنتجات..."
+  },
+
+
+
+  
+  "slider": {
+    "goToSection": "Go to {title} section",
+    "error": "Sorry, something went wrong.",
+    "addToCart": "Add to Cart",
+    "addedToCart": "Added . . Go to cart ?",
+    "buyNow": "Buy Now",
+    "category": "Category: {title}",
+    "variantsNumber": "Variants Number: {count}",
+    "price": "${price}",
+    "discountedPrice": "$${price}",
+    "originalPrice": "$${price}",
+    "loading": "Loading..."
+  },
+  "allProducts": {
+    "filter": "Filter",
+    "apply": "Apply",
+    "clear": "Clear",
+    "viewCourse": "View Course",
+    "error": "Sorry, something went wrong.",
+    "lessons": "Lessons: {count}",
+    "duration": "Duration: {minutes} min",
+    "rating": "Rating: {rating} ⭐",
+    "enrolled": "Enrolled: {count}",
+    "lowestPrice": "lowest price",
+    "highestPrice": "highest price",
+    "topRated": "top rated",
+    "featured": "Featured",
+    "recommended": "Recommended"
+  },
+  "Categories": {
+    "headline": "تصفح جميع الفئات المتاحة",
+    "loading": "جاري تحميل الفئات...",
+    "error": "حدث خطأ أثناء تحميل الفئات"
+  },
+  "rootPage": {
+    "headline": "مرحبًا بك في متجرنا الإلكتروني",
+    "subheadline": "كل ما تحتاجه في مكان واحد!",
+    "description": "استمتع بتجربة تسوق فريدة من نوعها مع أفضل المنتجات والعروض الحصرية. تسوق الآن بسهولة وأمان.",
+    "quickLinksTitle": "روابط سريعة",
+    "quickLinks": [
+      { "label": "الرئيسية", "href": "/global/home" },
+      { "label": "المتجر", "href": "/global/store" },
+      { "label": "تواصل معنا", "href": "/global/contact" }
+    ],
+    "socialTitle": "تابعنا على المنصات الاجتماعية",
+    "socialLinks": [
+      { "platform": "YouTube", "href": "#", "label": "يوتيوب" },
+      { "platform": "Facebook", "href": "#", "label": "فيسبوك" },
+      { "platform": "TikTok", "href": "#", "label": "تيك توك" },
+      { "platform": "Instagram", "href": "#", "label": "انستجرام" },
+      { "platform": "LinkedIn", "href": "#", "label": "لينكدإن" },
+      { "platform": "Telegram", "href": "#", "label": "تليجرام" },
+      { "platform": "WhatsApp", "href": "#", "label": "واتساب" }
+    ]
+  },
+  "admin": {
+    "sidebar": {
+      "showAllProducts": "عرض كل المنتجات",
+      "createNewProduct": "إضافة منتج جديد",
+      "showAllCategories": "عرض كل الفئات",
+      "createNewCategory": "إضافة فئة جديدة",
+      "showAllUsers": "عرض كل المستخدمين"
+    },
+    "createProduct": {
+      "createTitle": "إضافة منتج جديد",
+      "editTitle": "تعديل المنتج",
+      "name": "اسم المنتج",
+      "price": "السعر",
+      "discount": "الخصم (%)",
+      "inventory": "المخزون",
+      "recommended": "مُوصى به",
+      "shortDesc": "وصف مختصر",
+      "description": "وصف كامل (اختياري)",
+      "selectCategory": "اختر الفئة",
+      "loadingCategories": "جاري تحميل الفئات...",
+      "createBtn": "إضافة المنتج",
+      "editBtn": "تعديل المنتج",
+      "creating": "جاري الإضافة...",
+      "editing": "جاري التعديل..."
+    },
+    "createCategory": {
+      "title": "إضافة فئة جديدة",
+      "name": "اسم الفئة",
+      "slug": "المُعرف",
+      "description": "الوصف",
+      "uploading": "جاري رفع الصورة...",
+      "active": "نشط",
+      "wait": "انتظر...",
+      "createBtn": "إضافة الفئة"
+    },
+    "getAllCategories": {
+      "error": "حدث خطأ أثناء تحميل الفئات",
+      "name": "اسم الفئة",
+      "slug": "المُعرف",
+      "description": "الوصف",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "save": "حفظ",
+      "nameLabel": "الاسم:",
+      "slugLabel": "المُعرف:",
+      "descriptionLabel": "الوصف:",
+      "statusLabel": "الحالة:"
+    },
+    "showProducts": {
+      "error": "حدث خطأ أثناء تحميل المنتجات",
+      "category": "الفئة",
+      "variantsCount": "عدد المتغيرات",
+      "hideVariants": "إخفاء المتغيرات",
+      "showVariants": "عرض المتغيرات",
+      "deleteBtn": "حذف المنتج",
+      "editBtn": "تعديل المنتج",
+      "closeEdit": "إغلاق"
+    },
+    "users": {
+      "error": "حدث خطأ أثناء تحميل المستخدمين",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "id": "المعرف",
+      "deleteBtn": "حذف المستخدم",
+      "editBtn": "تعديل المستخدم"
+    }
+  }
+  }

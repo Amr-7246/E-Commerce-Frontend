@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserInfoContext } from "@/app/context/users/userInfoContext";
+import { useUserInfoContext } from "@/context/users/userInfoContext";
 
 export default function Page() {
   const { UserInfo : user } = useUserInfoContext()
