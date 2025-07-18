@@ -152,7 +152,15 @@
       "password": "كلمة المرور",
       "id": "المعرف",
       "deleteBtn": "حذف المستخدم",
-      "editBtn": "تعديل المستخدم"
+      "editBtn": "تعديل المستخدم",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "save": "حفظ",
+      "nameLabel": "الاسم:",
+      "emailLabel": "البريد الإلكتروني:",
+      "passwordLabel": "كلمة المرور:",
+      "idLabel": "المعرف:",
+      "statusLabel": "الحالة:"
     }
   }
   }
