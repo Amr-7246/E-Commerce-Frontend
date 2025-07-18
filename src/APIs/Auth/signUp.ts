@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
-import { Iuse } from "../signIn/page"
 import { useUserInfoContext } from "@/context/users/userInfoContext"
 import {  useRouter } from "next/navigation"
 import toast from "react-hot-toast"
+import { Iuse } from "@/app/global/user/signIn/page"
 
 const SignUp = async (payload : Iuse ) => {
     const res = await axios.post( `${process.env.NEXT_PUBLIC_BACK_END_URL}/auth/signup`, payload ,  { withCredentials: true } )
