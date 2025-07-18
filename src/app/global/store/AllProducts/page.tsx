@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
-import { UseGetEntities } from '@/app/APIs/GetEntitiy'
+import { UseGetEntities } from '@/APIs/GetEntitiy'
 import { useGlobalContext } from '@/context/Global/GlobalContext'
 import Link from 'next/link'
 
