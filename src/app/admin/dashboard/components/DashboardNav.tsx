@@ -86,7 +86,7 @@ return (
             </div>
             <nav className='flex flex-col flex-wrap h-fit '>
                 {options.map((option, idx) => (
-                    <Link className={` flex flex-row gap-3 border-b border-white hover:text-black font-bold px-4 py-4 transition-colors duration-300 ${curentPath == option.href ? 'admin-sidebar-link-active' : ''}`} key={idx} href={option.href}>
+                    <Link className={` flex flex-row gap-3 border-b border-white hover:text-teal-400 font-bold px-4 py-4 transition-colors duration-300 ${curentPath == option.href ? 'admin-sidebar-link-active !text-teal-400' : ''}`} key={idx} href={option.href}>
                         <span >{iconMap[option.name] || null}</span>{option.name}
                     </Link>
                 ))}
