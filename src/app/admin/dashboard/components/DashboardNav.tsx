@@ -78,7 +78,7 @@ const DashboardNav = () => {
     }, [IsOpend])
 return (
     <>
-        <div ref={navRef}  className='admin-sidebar md:flex !flex-col min-w-[250px] overflow-y-auto h-[100%] sticky w-[25%] hidden'>
+        <div ref={navRef}  className='admin-sidebar !bg-black md:flex !flex-col min-w-[250px] overflow-y-auto h-[100%] sticky w-[25%] hidden'>
             <div className='flex flex-col border-b border-white h-fit items-end '>
                 <Link href="/global/home">
                     <img className='w-[60px] h-[60px] cursor-pointer' src="/assets/Logo.png" alt="logo" />
